@@ -250,7 +250,7 @@ This is a great feature that makes programmer deliver the event answer to other 
 	}
 
 \subsection RAII RAII  
-There is an important feature. As shown in the above examples, as soon as a `form` object is created, 
+This is an important feature. As shown in the above examples, as soon as a `form` object is created, 
 its corresponding window is created, but the window is invisible till the `show()` is called 
 for the `form` object. As soon as the `form` object is destructed, its corresponding window is 
 closed: this conforms with the C++ object life-time concept.
