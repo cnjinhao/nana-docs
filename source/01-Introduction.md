@@ -20,13 +20,16 @@ build an active developer community to give help in using this library.
 
 \section Install  Installation 
 
+
+[This page can be outdated. Please visit the original](http://nanapro.org/en-us/help/instl_lib_doc.htm).
+
 When you extract the library from its zip files, you have to install the library and configurate it before using. 
 There is a general steps to install the library.
 \subsection General General
 
 #### Some terms for this instruction:
 + *NanaPath*: The path where Nana's files are located.
-+ *IDEName*: The name of a certain Integrated Development Environments. Such as vc7.1, vc8.
++ *IDEName*: The name of a certain Integrated Development Environments. Such as vc2013.
 + *NanaStatic*: The generated Nana static linkage file, a *.lib/*.a file.
 + *BoostPath*: The path where Boost C++ Libraries are located.
 
@@ -47,22 +50,18 @@ Make sure that enable the compiler for supports of RTTI, MultiThreading and exce
 \subsection Microsoft Microsoft Visual C++
 1. Set directories
 
-	Add the Include Path *NanaPath*/include and the Library Path *NanaPath*/build/bin/IDEName and *NanaPath*/extrlib.
-	#### Microsoft Visual C++ 2010/2012/2013
-	Open the directory of "%UserProfile%/AppData/Local/Microsoft/MSBuild/v4.0", the %UserProfile% is a system environment variable. 
-	Then you can find some files which are named like "Microsoft.CPP.XXX.user.props", choose one of them for your target platform, and edit it as follow:
+   Add the Include Path *NanaPath*/include and the Library Path *NanaPath*/build/bin/IDEName and *NanaPath*/extrlib.
+   #### Microsoft Visual C++ 2013
+   Open the directory of "%UserProfile%/AppData/Local/Microsoft/MSBuild/v4.0", the %UserProfile% is a system environment variable. 
+   Then you can find some files which are named like "Microsoft.CPP.XXX.user.props", choose one of them for your target platform, and edit it as follow:
 	
 	Insert "NanaPath/include" to the section <IncludePath>.
 	
-	Insert "NanaPath/build/bin/IDEName(e.g. vc10/vc2012/vc2013)" and "NanaPath/extrlib" to the section <LibraryPath>, and split them up with a semicolon.
-	#### Microsoft Visual C++ 2003/2005/2008
-	Click the menu *Tools->Options*, and then it shows a Options dialog. 
-	
-	Find  "Show directories for" which is in *Projects and Solutions->VC++ Directories*.
+	Insert "NanaPath/build/bin/IDEName(e.g. vc2013)" and "NanaPath/extrlib" to the section <LibraryPath>, and split them up with a semicolon.
 
 2. Compile Nana C++ Library
 	
-	Open "NanaPath/build/IDEName(e.g. vc7.1/vc8/vc9/vc10/vc2012/vc2013)/Nana.sln" with Visual C++. Click the menu Build->Rebuild All.  After building, a NanaStatic(e.g. nana_debug.lib, nana_release.lib) file should be generated in "NanaPath/build/bin/IDEName".
+	Open "NanaPath/build/IDEName(e.g. vc2013)/Nana.sln" with Visual C++. Click the menu Build->Rebuild All.  After building, a NanaStatic(e.g. nana_debug.lib, nana_release.lib) file should be generated in "NanaPath/build/bin/IDEName".
 
 3. Programming with Nana C++ Library
 	
@@ -127,7 +126,7 @@ Make sure that enable the compiler for supports of RTTI, MultiThreading and exce
 	when building the Nana.C++11.
 
 3. Programming with Nana C++ Library
-	Create a project, then open "Project->Build options...->Compiler settings->Compiler flags", and enable "-std=c++0x" or "-std=c++11" if it is Nana.C++11.
+	Create a project, then open "Project->Build options...->Compiler settings->Compiler flags", and enable "-std=c++11".
 	Switch the tab to "Linker settings" in "Project build options", and link these static libraries in "Other linker options".
 	##### Windows:
 				- lnana -lgdi32 -lcomdlg32
@@ -159,7 +158,7 @@ How easy is to create a Hello World program with Nana?
 
 	int main()
 	{
-  		using namespace nana::gui;
+  		using namespace nana;
   		form    fm;
   		label   lb(fm, fm.size());
  		lb.caption(STR("Hello, World"));
@@ -175,16 +174,16 @@ For example, answering an event.
 	#include <nana/gui/wvl.hpp>
 	#include <nana/gui/widgets/button.hpp>
 
-	void clicked(const nana::eventinfo&)
+	void clicked(const nana::arg_mouse&)
 	{
 		 //When the window  fm  is clicked, this function will be "called".
 	}
 
 	int main()
 	{
- 		using namespace nana::gui;
+ 		using namespace nana;
  		form fm;
- 		fm.make_event<events::click>(clicked);
+ 		fm.events().click(clicked);
  		fm.show();
  		exec();
 	}
@@ -198,7 +197,7 @@ like in the example:
 	{
  		//When the form is clicked, this function will be "called".
 	}
-	fm.make_event<events::click>(clicked);      //Nana allows!
+	fm.events().click(clicked);    //Nana allows!
 
 Very flexible, and keep your code simple. And this feature can be applied with function object.
 
@@ -209,17 +208,17 @@ Nana uses 100% C++ and the template techniques make this library very powerful a
 flexible. Nana is unlike other template-based library that causes a lot of code bloat 
 and requires programmers have template-skilled, it's newbie-friendly.
 
-Nana is a complete C++ style library that compile on Visual C++7.1/GCC 3.4 and later. 
+Nana is a complete C++ style library that compile on Visual C++ 2013/GCC 4.8 and later. 
 If you are a C++ expert, Nana allows you to use lambda, a new feature of C++11, for event 
 answering. Like this:
 
-	fm.make_event<events::click>( []{	//When the form is clicked, the object  	
+	fm.events().click( []{	//When the form is clicked, the object  	
 			           			        //created by this lambda will be "called".
  						            });
 
 or
 
-	fm.make_event<events::click>( [](const eventinfo& ei){ 
+	fm.events().click( [](const arg_mouse& ei){ 
 										//When the form is clicked, the object created
  										//by this lambda will be "called", and I can
  										//read the parameter.
@@ -238,12 +237,12 @@ This is a great feature that makes programmer deliver the event answer to other 
 	}
 	int main()
 	{
-	  using namespace nana::gui;
+	  using namespace nana;
 	  using namespace nana::threads;
  		pool thrpool;
  		form fm;
- 		fm.make_event<events::click>(pool_push(thrpool, foo));
- 		fm.make_event<events::click>(pool_push(thrpool, []{
+ 		fm.events().click(pool_push(thrpool, foo));
+ 		fm.events().click(pool_push(thrpool, []{
  												  //A lambda is also allowed.
  										  }));
  		fm.show();
@@ -251,14 +250,14 @@ This is a great feature that makes programmer deliver the event answer to other 
 	}
 
 \subsection RAII RAII  
-There is a important feature as shown in above examples, as soon as a `form` object is created, 
-its corresponding window is created, and the window is invisible till the `show()` is called 
-to the `form` object, as soon as the `form` object is destructed, its corresponding window is 
-closed, it conforms with the C++ object life-time concept.
+There is an important feature. As shown in the above examples, as soon as a `form` object is created, 
+its corresponding window is created, but the window is invisible till the `show()` is called 
+for the `form` object. As soon as the `form` object is destructed, its corresponding window is 
+closed: this conforms with the C++ object life-time concept.
 
 \subsection Cross Cross-Platform Programming 
 Nana C++ Library is designed to be used for cross-platform programming. 
-Its first release is under Windows. Now, the library is basiclly ported to Linux(X11).
+Its first release was under Windows. Now, the library is ported to Linux(X11).
 
 The Most Important Feature: Free
 
@@ -274,13 +273,13 @@ This lesson is indented to get you started programming with Nana.GUI. Let's read
 
 	int main()
 	 {
-		 using namespace nana::gui;
+		 using namespace nana;
 
 		 form fm;
 		 fm.caption(STR("Hello World"));
 		 button btn(fm, nana::rectangle(20, 20, 150, 30));
 		 btn.caption(STR("Quit"));
-		 btn.make_event<events::click>(API::exit);
+		 btn.events().click(API::exit);
 		 fm.show();
 		 exec();
 	 }
@@ -304,11 +303,11 @@ The `main()` function is the entry point to the program. Almost always when usin
 `main()` only needs to perform some kind of initialization before passing the control to the Nana.GUI 
 library, which then tells the program about the user's actions via events.
 
-    using namespace nana::gui;
+    using namespace nana;
 
-Specify the nominated namespace nana::gui can be used in `main` function block scope. 
-In this example, these names `form`, `button`, `events`, `API` and `exec` are defined in the namespace nana::gui.
-With this using-directive, we could use these names directly in the main function scope.
+Specify the nominated namespace `nana` can be used in `main` function block scope. 
+In this example, the names `form`, `button`, `events`, `API` and `exec` are defined in the namespace `nana`.
+With this using-directive, we can use these names directly in the `main` function scope.
 
 	form fm;
 
@@ -322,16 +321,16 @@ Set the `form` to display the text "Hello World" in its title bar.
 
 	button btn(fm, nana::rectangle(20, 20, 150, 30));
 
-After the `form`, comes a button we created. In its constructor arg-list, the first argument tells 
-the btn who the parent window is, and the following arguments describe position and size of btn. 
+After the `form`, a button is created. In its constructor arg-list, the first argument tells 
+the `btn` who the parent window is, and the following arguments describe the position and size of `btn`. 
 
 	btn.caption(STR("Quit"));
 
-Set the btn to display the text "Quit". 
+Set the `btn` to display the text "Quit". 
 
-	btn.make_event<events::click>(API::exit);
+	btn.events().click(API::exit);
 
-make_event() is a method that every Nana.GUI widgets provide, you can register an event callback 
+`event()` is a method that every Nana.GUI widgets provide, you can register an event callback 
 by using it. We want to exit the program while a mouse clicks on the btn. Now, register a callback
 function on `click` event. 
 
@@ -339,7 +338,7 @@ function on `click` event.
 
 A form widget is never visible when you create it. You must call show() to make it visible. 
 
-	nana::exec();
+	::nana::exec();
 
 This is where the main() passes the control to Nana.GUI, and exec() will return when the 
 application exists. In exec(), Nana.GUI processes the message loop and passes every event 
@@ -353,8 +352,8 @@ Further
 
 	STR("Hello World")
 
-What is `STR`? `STR` is a macro that transforms a multi-byte string into wide-byte string 
-if `NANA_UNICODE` is defined in *config.hpp*. With `STR` you can easier switch your program 
+What is `STR`? `STR` is a macro that tell your compiler a that the literal string is a  wide-byte string 
+if `NANA_UNICODE` is defined in *config.hpp*, otherwise - multi-byte. With `STR` you can easier switch your program 
 between multi-byte and wide-byte. 
 
 \todo Better explain what STR() is. No run-time cost: just preprocesing, 100%. Clean and simple.
@@ -368,8 +367,8 @@ See ...
 
 What is nana::API::exit? This is an API provided by Nana.GUI. Its prototype is
 void exit(). If exit() is called, Nana.GUI destroy all the windows you've created and 
-the exec() will return. Member make_event() has a template argument. The argument can be a
-function or a functor with a  `const nana::eventinfo&` parameter or not. 
+the exec() will return. Member event().click() has a template argument. The argument can be a
+function or a functor with a  `const nana::arg_mouse&` parameter or not. 
 
 Is it right to invoke exit() in an event callback? 
 
