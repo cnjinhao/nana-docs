@@ -11,3 +11,4 @@ Contributed by qPCR4vir
  
  5- open and bookmark the localy generated web site.
  
+[This is an example of what you will get](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html)
