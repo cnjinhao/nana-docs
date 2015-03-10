@@ -34,43 +34,43 @@ Let's start with a simple program, we will study it line by line.
 	  } 
 \endcode
 
-Lines 1 and 2 include the definitions of class `form` and class `label` in namespace nana::gui. 
-Every GUI application written with Nana C++ Library must include the header file nana/gui/wvl.hpp. 
+Lines 1 and 2 include the definitions of class `form` and class `label` in namespace `nana`. 
+Every GUI application written with Nana C++ Library must include the header file `nana/gui/wvl.hpp`. 
 
-Line 5 defines a nana::form object. It is a window used for placing a label widget in this example. 
+Line 5 defines a `nana::form object`. It is a window used for placing a label widget in this example. 
 
-Line 6 defines a nana::label object to display a text string. The label object is created in the form. A widget is a visual element in the user interface. 
+Line 6 defines a `nana::label` object to display a text string. The label object is created in the form. A widget is a visual element in the user interface. 
 
-Line 7 sets the caption of label object. Every widget has a caption for displaying a title. In this line, there is a string within a macro named STR, 
-this macro is a string wrapper used for easy switch the application between UNICODE and ASCII version. 
+Line 7 sets the caption of the label object. Every widget has a caption for displaying a title. In this line, there is a string within a macro named `STR`, 
+this macro is a literal string wrapper used to easy switch the application between UNICODE and ASCII version. 
 
 Line 8 makes the form visible. 
 
-Line 9 passes the control of the application on to Nana. At this point, the program enters the event loop for waiting for
-and receiving a user action, such as mouse move, mouse click and keyboard press. The function nana::exec blocks till
-form is destroyed, and the example demonstrate is that program exits when a user closes the window. 
+Line 9 passes the control of the application to Nana. At this point, the program enters the event loop for waiting for
+and receiving a user action, such as mouse move, mouse click and keyboard press. The function `nana::exec` blocks till
+`form` is destroyed, and what the example demonstrate is that the program exits when a user closes the window. 
 
 ![Figure 1.1 Hello Nana](HelloNana.jpg)
 
 Now, you can run the program on your own machine. But firstly you should have Nana C++ Library 
-installed in your system. A method to install is explained in Installation Library Documentation 
+installed in your system. A method to install is explained in [Installation Library Documentation](http://nanapro.org/en-us/help/instl_lib_doc.htm) 
 in Nana Programmer`s Guide. 
 
 \subsection Event Making An Event  
 The second example shows how to respond a user action. To receive a user action, an event 
 handler should be registered to a widget. Nana waits for a user action and invokes the event 
-handler of corresponding event. The application consists of a button that the user can click to quit. 
+handler of the corresponding event. The example application consists of a button that the user can click to quit. 
 
 \code
 	#include <nana/gui/wvl.hpp> 
 	#include <nana/gui/widgets/button.hpp> 
 	int main() 
 	{ 
-		using namespace nana::gui; 
+		using namespace nana; 
 		form fm; 
 		button btn(fm, 0, 0, 100, 20); 
 		btn.caption(STR("Quit")); 
-		btn.make_event<events::click>(API::exit); 
+		btn.events().click(API::exit); 
 		fm.show(); 
 		exec(); 
 	} 
@@ -78,10 +78,9 @@ handler of corresponding event. The application consists of a button that the us
 
 This source code is similar to Hello Nana, except that we are using a button instead of a label, and 
 we are making an event to respond a user click. Every widget class has a set of methods to make events, 
-they are named "make_event". This is a function template. The first template parameter specifie what 
-event must be given explicitly when calling the function, and the parameter of the member function is an 
-event handler. As above code shown, we make the API::exit() as an event handler for the button's click event. 
-The exit() function is an API in Nana C++ Library. It closes all windows in current GUI thread and terminates 
+they are named "events()". The parameter of the member function is an 
+event handler. As above code shown, we make the `API::exit()` as an event handler for the button's click event. 
+The `exit()` function is an API in Nana C++ Library. It closes all windows in current GUI thread and terminates 
 the event loop. It will be called when the user clicks the button. 
 
 ![Figure 1.2 Event Example](Quit.jpg)
@@ -89,10 +88,10 @@ the event loop. It will be called when the user clicks the button.
 
 \section Functor Function Objects  
 
-This chapter shows two basic concepts: function object and lambda. Function object is a requirement to understand Nana C++ Library. 
+This chapter shows two basic concepts: function object and lambdas. Function object is a requirement to understand Nana C++ Library. 
 
 A Function Object, or Functor (the two terms are synonymous) is simply any object that can be called as 
-if it is a function, more generally, so is an object of a class that defines function call operator(). 
+if it is a function, more generally, so is an object of a class that defines a function call `operator()`. 
 
 The function object is an impressive technology. A function object is a more general concept than a function 
 because a function object can have state that persist across several calls and can be initialized and examined 
@@ -115,12 +114,12 @@ from outside the object, unlike a static local variable. For example:
 	} 
 \endcode
 
-std::for_each() returns a copy of the object of sum, and we are able to retrieve the state or result. 
-On the basis of this feature that function objects retain its own state, it is easy used for concurrency 
+`std::for_each()` returns a copy of the object `sum`, and we are able to retrieve the state or result. 
+On the basis of the feature that function objects retain its own state, it is easy used for concurrency 
 process, and it is extensively used for providing flexibility in the library implementation. 
 
 Nana C++ Library uses a large number of function objects to make the framework work. 
-To make the framework flexible enough, Nana C++ Library introduced a general functor class template: 
+To make the framework flexible enough, Nana C++ Library the general std::function class template: 
 
 	template<typename Ftype> class nana::functor; 
 
@@ -128,70 +127,76 @@ The template parameter Ftype specify what function type the functor delegates. B
 class template, we are able to make Nana C++ Library get rid of types that involved. For example: 
 
 \code
-	#include <nana/gui/wvl.hpp> 
-	#include <iostream> 
-	void foo() 
-	{ 
-		std::system("cls"); 
-		std::cout<<"foo"<<std::endl; 
-	} 
-	void foo_with_eventinfo(const nana::eventinfo& ei) 
-	{ 
-	  std::cout << "foo_with_eventinfo, mouse pos = ("
-	   << ei.mouse.x  << ", "  <<  ei.mouse.y  << ")" << std::endl; 
-	} 
-	class click_stat 
-	{ public: 
-		click_stat(): n_(0) {} 
-		void respond   ()   { std::cout<<"click_stat = "<<++n_<<std::endl; } 
-		void respond_ei(const nana::eventinfo& ei) 
-		{ 
-			 std::cout << "click_state width eventinfo = " << n_ 
-			<< ", mouse pos = ("  <<ei.mouse.x<<", "<<ei.mouse.y<<")"
-			<< std::endl; 
-		} 
-	 private: 
-	   int n_; 
-	}; 
-	int main() 
-	{ 
-		using namespace nana::gui; 
-		typedef nana::functor<void()> 				    fun_t; 
-		typedef nana::functor<void(const eventinfo&)> 	fun_with_param_t; 
-		form 		fm; 
-		click_stat 	cs; 
-		fun_t 		f(foo); 
-		fm.make_event<events::click>(f); 
-		f = fun_t(cs, &click_stat::respond); 
-		fm.make_event<events::click>(f); 
-		fun_with_param_t fp(foo_with_eventinfo); 
-		fm.make_event<events::click>(fp); 
-		fp = fun_with_param_t(cs, &click_stat::respond_ei); 
-		fm.make_event<events::click>(fp); 
-		fm.show(); 
-		exec(); 
-	} 
+    #include <nana/gui/wvl.hpp> 
+    #include <iostream> 
+    void foo() 
+    { 
+        std::system("cls"); 
+        std::cout<<"foo"<<std::endl; 
+    } 
+    void foo_with_eventinfo(const nana::arg_mouse& ei) 
+    { 
+      std::cout << "foo_with_eventinfo, mouse pos = ("
+       << ei.pos.x  << ", "  <<  ei.pos.y  << ")" << std::endl; 
+    } 
+    class click_stat 
+    { public: 
+        click_stat(): n_(0) {} 
+        void respond   ()   { std::cout<<"click_stat = "<<++n_<<std::endl; } 
+        void respond_ei(const nana::arg_mouse& ei) 
+        { 
+             std::cout << "click_state width eventinfo = " << n_ 
+            << ", mouse pos = ("  <<ei.pos.x<<", "<<ei.pos.y<<")"
+            << std::endl; 
+        } 
+     private: 
+       int n_; 
+    }; 
+
+    int main() 
+    { 
+        using namespace nana; 
+        using fun_t            = std::function<void(                )>  ; 
+        using fun_with_param_t = std::function<void(const arg_mouse&)>  ; 
+
+        form        fm; 
+        click_stat  cs; 
+    
+        fun_t       f=foo; 
+        fm.events().click(f); 
+
+        fun_with_param_t fp(foo_with_eventinfo); 
+        fm.events().click(fp); 
+
+        f= std::bind( &click_stat::respond, cs); 
+        fm.events().click(f ); 
+
+        fp= std::bind( &click_stat::respond_ei, cs , std::placeholders::_1 );
+        fm.events().click(fp); 
+
+        fm.show(); 
+        exec(); 
+    } 
 \endcode
 
-There are four different types of event handlers that can be processed by using nana::functor 
-class template. It is flexible and reduce the complexity of study and use. 
+There are four different types of event handlers that can be processed. It is flexible and reduce the complexity of study and use. 
 
 ![Figure 2.1 Various methods to make events to respond click.] (make_event.jpg)
 
-In the previous example, we illustrated the use of nana::functor and the flexibility of using a 
-function object. Practically, creating a nana::functor object is not required. Using these 
-functions this way instead of creating a nana::functor: 
+In the previous example, we illustrated the use of std::function and the flexibility of using a 
+function object. Practically, creating a functor object is not required. Using these 
+functions this way instead of creating a functor: ?????
 
 \code
 	int main() 
 	{ 
-		using namespace nana::gui; 
+		using namespace nana; 
 		form fm; 
 		click_stat cs; 
-		fm.make_event<events::click>(foo); 
-		fm.make_event<events::click>(cs, &click_stat::respond); 
-		fm.make_event<events::click>(foo_with_eventinfo); 
-		fm.make_event<events::click>(cs, &click_stat::respond_ei); 
+		fm.events().click(foo); 
+		fm.events().click(cs, &click_stat::respond); 
+		fm.events().click(foo_with_eventinfo); 
+		fm.events().click(cs, &click_stat::respond_ei); 
 		fm.show(); 
 		exec(); 
 	} 
@@ -204,7 +209,7 @@ function objects together with function templates increases the expressive power
 the library as well as making the resulting code much more efficient. For example, if
 a C++ program wants to close the form when the form is being clicked. 
 
-	form.make_event<events::click>(destroy(form)); 
+	form.events().click(destroy(form)); 
 
 Please include <nana/gui/functional.hpp> before using these function objects. 
 
@@ -269,8 +274,8 @@ The use of lambda is creating an anonymous function object and so the arguments 
 
 \code
 	form.events().click( 
-			[](const nana::eventinfo& ei) 
-			{ std::cout<<"mouse pos=("<<ei.mouse.x<<", "<<ei.mouse.y <<std::endl;} 
+			[](const nana::arg_mouse& ei) 
+			{ std::cout<<"mouse pos=("<<ei.pos.x<<", "<<ei.pos.y <<std::endl;} 
 		); 
 \endcode
 
@@ -515,7 +520,7 @@ Nana C++ Library will manage the form objects created by form_loader and destroy
 	#include <nana/gui/wvl.hpp> 
 	int main() 
 	{ 
-	using namespace nana::gui; 
+	using namespace nana; 
 	form_loader<form>()().show(); 
 	exec(); 
 	} 
@@ -531,16 +536,16 @@ is created when the button is being clicked.
 	#include <nana/gui/widgets/button.hpp> 
 	void click() 
 	{ 
-		using namespace nana::gui; 
+		using namespace nana; 
 		form_loader<form>()().show(); 
 	} 
 	int main() 
 	{ 
-		using namespace nana::gui; 
+		using namespace nana; 
 		form fm; 
 		button btn(fm, 10, 10, 150, 23); 
 		btn.caption(STR("Open a new form")); 
-		btn.make_event<events::click>(click); 
+		btn.events().click(click); 
 		fm.show(); 
 		exec(); 
 	} 
@@ -557,7 +562,7 @@ template parameters, the first is used for specifying a type of form, the second
 template parameter and its type is bool named IsMakeVisible, used for determining whether making 
 the form visible. So, we can specify the second template parameter by giving true, like this. 
 
-	btn.make_event<events::click>(form_loader<form, true>()); 
+	btn.events().click(form_loader<form, true>()); 
 
 See also [this discussion](https://nanapro.codeplex.com/discussions/443128).
 \subsection mmodal Modal Form  
@@ -570,7 +575,7 @@ execution and wait for a user input. For example:
 	#include <nana/gui/wvl.hpp> 
 	#include <nana/gui/widgets/button.hpp> 
 	#include <iostream> 
-	void foo(const nana::eventinfo& ei) 
+	void foo(const nana::arg_mouse& ei) 
 	{ 
 		using namespace nana::gui; 
 		form fm(ei.window, API::make_center(ei.window, 400, 300)); 
@@ -581,10 +586,10 @@ execution and wait for a user input. For example:
 	} 
 	int main() 
 	{ 
-		using namespace nana::gui; 
+		using namespace nana; 
 		form fm; 
 		fm.caption(STR("Click me to open a modal form")); 
-		fm.make_event<events::click>(foo); 
+		fm.events().click(foo); 
 		fm.show(); 
 		exec(); 
 	} 
@@ -676,7 +681,7 @@ that has a minimize button and maximize button will be:
 	#include <nana/gui/wvl.hpp> 
 	int main() 
 	{ 
-		using namespace nana::gui; 
+		using namespace nana; 
 		form fm(API::make_center(240, 160), 
 		appear::decorate<appear::minimize, appear::maximize>()); 
 		fm.show(); 
@@ -724,21 +729,21 @@ To response to the click action generated by any specified button, we need to ma
 	{ 
 		using namespace nana::gui; 
 		form fm; 
-		fm.make_event<events::click>(foo); 
+		fm.events().click(foo); 
 		exec(); 
 	} 
 
-As shown in above code, the make_event() is a member template of class widget, and it is 
+As shown in above code, the event() is a member template of class widget, and it is 
 used for registering an event handler. The above code makes a click event for the `form` object.
 When the user clicks the body of the form, Nana is responsible for invoking the function `foo()` 
 registered as a handler of the specified event. Additionally, the function `foo()` can be 
-specified with a parameter of type `const nana::eventinfo&` to receive the information 
+specified with a parameter of type `const nana::arg_mouse&` to receive the information 
 of the event. The details of eventinfo are described in section 6.2. 
 
-The make_event() returns a handle of event handler if the registration is successful. 
+The event() returns a handle of event handler if the registration is successful. 
 The type of the return value is nana::event_handle. With the handle, we can delete the event handler manually. For example:
 
-	event_handle handle = fm.make_event<events::click>(foo); 
+	event_handle handle = fm.events().click(foo); 
 	fm.umake_event(handle); 
 
 After calling the umake_event(), the `foo()` function would be not invoked when the user clicks the body of form. 
@@ -752,15 +757,15 @@ The classes for event types are defined in the namespace nana::events, such as `
 Every event contains some information. The information is sent to the application through a (const) reference to an `eventinfo` object in event handler. 
 
 	#include <nana/gui/wvl.hpp> 
-	void foo(const nana::eventinfo& ei) 
+	void foo(const nana::arg_mouse& ei) 
 	{ 
 		//Refer to ei for information of event. 
 	} 
 	int main() 
 	{ 
-		using namespace nana::gui; 
+		using namespace nana; 
 		form fm; 
-		fm.make_event<events::click>(foo); 
+		fm.events().click(foo); 
 		fm.show(); 
 		exec(); 
 	} 
@@ -769,7 +774,7 @@ Nana.GUI provides some raw events, such as `click`, `mouse_move` and so on.
 Most of these events can work with all widgets implemented by Nana.GUI, but some of them are individual, 
 like `unload` for `root widget` and `elapse` for `timer`.
 
-Every widget has an interface for registering an event, named `make_event`.
+Every widget has an interface for registering an event, named `events`.    \todo Actualize!
 
 	  template<typename Event, typename Function>
 	event_handle make_event(Function) const;
@@ -808,10 +813,10 @@ elapse			| A widget received a tick that is sended by timer.
 An user-defined event function may have a parameter of type `const nana::eventinfo&` for queering the event information, such as mouse position.
 
 	void foo();
-	void foo_with_parameter(const nana::eventinfo&);
+	void foo_with_parameter(const nana::arg_mouse&);
 	class user_def_functor
 	{ public:
-	   void operator()(const nana::eventinfo&); 		 //user-defined function must have the parameter.
+	   void operator()(const nana::arg_mouse&); 		 //user-defined function must have the parameter.
 	};
 	nana::button().events().click(foo);
 	nana::button().events().click(foo_with_parameter);
@@ -860,7 +865,7 @@ In an event handler function, we can refer to the structure by using eventinfo o
 \code
 	void foo(const nana::eventinfo& ei) 
 	{ 
-		using namespace nana::gui; 
+		using namespace nana; 
 		switch(ei.identifier) 
 		{ default: ei.mouse;           //refers to the structure of mouse events. 
 				 break; 
@@ -967,7 +972,7 @@ After configuration, rebuild the Nana C++ Library, and create an application for
 	#include <nana/gui/layout.hpp>
 	int main()
 	{
-		using namespace nana::gui;
+		using namespace nana;
 		form fm;
 		picture pic(fm);
 		gird gd(fm);
@@ -1005,7 +1010,7 @@ whose type overloads an operator<<() for std::ostream.
 Sometimes, the application should ask user for a decision, for example, ask user whether to exit.
 
 \code
-	void when_exit(const nana::eventinfo& ei)
+	void when_exit(const nana::arg_unload& ei)
 	{
 		nana::msgbox m(ei.window, STR("msgbox example"), nana::msgbox::yes_no);
 		m.icon(m.icon_question);
@@ -1016,7 +1021,7 @@ Sometimes, the application should ask user for a decision, for example, ask user
 	{
 		using namespace nana::gui;
 		form fm;
-		fm.make_event<events::unload>(when_exit);
+		fm.events().unload(when_exit);
 		fm.show();
 		exec();
 	}
@@ -1040,7 +1045,7 @@ between Windows and Linux(X11). The icon of a window only could be an ICON file 
 If cross-platform is desired, the code should be treated differently.
 
 \code
-	using namespace nana::gui;
+	using namespace nana;
 	form fm;
 	#if defined(NANA_WINDOWS)
 	API::window_icon(fm, nana::paint::image(STR("icon.ico")));

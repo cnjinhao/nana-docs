@@ -228,4 +228,9 @@ and [Is it possible to make event inside event handler?](https://nanapro.codeple
 and [nana::drawing and nana::API::update_window ](https://nanapro.codeplex.com/discussions/445024)
 
 */
-	
+
+/**\example a_group_impl.cpp	
+
+![](groups.png)
+
+*/
