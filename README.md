@@ -16,7 +16,7 @@ Contributed by qPCR4vir
 # Documenting nana
 
 1. [Nana official documentation.](http://nanapro.org/en-us/help/index.htm)
-2. [Nana automatic documentation]().  [See an example here](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html)
+2. [This Nana automatic documentation project](https://github.com/cnjinhao/nana-docs).  [See an example here](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html)
 3. [Nana Wiki](https://github.com/qPCR4vir/nana-docs/wiki)
 
-Please coolaborate!
+Please collaborate!
