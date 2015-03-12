@@ -3,11 +3,11 @@
 
 See also:
  
- + [An application of Clone Method to Nana C++ Library](http://nanaproject.wordpress.com/2011/03/20/clone_method/)
- + [An introduction to the image processing interfaces from release of 0.2.2](http://nanaproject.wordpress.com/2012/04/17/an-introduction-to-the-image-processing-interfaces-from-release-of-0-2-2/)
- + [Blending Images](http://nanaproject.wordpress.com/2012/02/22/blending-images/)
- + [Introduction to The Support of Bidirectional Language](https://nanaproject.wordpress.com/2012/06/18/introduce-to-the-support-of-bidirectional-language/)
- + [Nana Tutorial: Creating A GUI Calculator ](https://sourceforge.net/p/nanapro/blog/2013/03/nana-tutorial-creating-a-gui-calculator/)
+ + [An application of Clone Method to Nana C++ Library](http://nanaproject.wordpress.com/2011/03/20/clone_method/) (March 20, 2011 )
+ + [An introduction to the image processing interfaces from release of 0.2.2](http://nanaproject.wordpress.com/2012/04/17/an-introduction-to-the-image-processing-interfaces-from-release-of-0-2-2/) (April 17, 2012)
+ + [Blending Images](http://nanaproject.wordpress.com/2012/02/22/blending-images/) (February 22, 2012)
+ + [Introduction to The Support of Bidirectional Language](https://nanaproject.wordpress.com/2012/06/18/introduce-to-the-support-of-bidirectional-language/) (June 18, 2012)
+ + [Nana Tutorial: Creating A GUI Calculator ](https://sourceforge.net/p/nanapro/blog/2013/03/nana-tutorial-creating-a-gui-calculator/) (2013-03-03 ) 
  + [The FreeMe](http://nanapro.sourceforge.net/help/tutorials/thefreeme.htm)
  + Demo of Nana C++ Library
  + See the examples in this documentation.
@@ -16,18 +16,20 @@ See also:
 
 \section exam Examples
 
-This chapter shows how to create a small graphical user interface (GUI) application with Nana C++ Library. 
+This chapter shows how to create an small graphical user interface (GUI) application with Nana C++ Library. 
 
-\subsection HelloN Hello Nana 
+\subsection HelloN Hello Nana  
+
 Let's start with a simple program, we will study it line by line. 
 
 \code
+
 	1 #include <nana/gui/wvl.hpp> 
 	2 #include <nana/gui/widgets/label.hpp> 
 	3 int main() 
 	4 { 
 	5 	nana::form form; 
-	6 	nana::label label(form, 0, 0, 100, 20); 
+	6 	nana::label label(form, nana::rectangle(0, 0, 100, 20)); 
 	7 	label.caption(STR("Hello Nana")); 
 	8 	form.show(); 
 	9 	nana::exec(); 
@@ -91,13 +93,14 @@ the event loop. It will be called when the user clicks the button.
 This chapter shows two basic concepts: function object and lambdas. Function object is a requirement to understand Nana C++ Library. 
 
 A Function Object, or Functor (the two terms are synonymous) is simply any object that can be called as 
-if it is a function, more generally, so is an object of a class that defines a function call `operator()`. 
+if it is a function. More generally, it is an object of a class that defines a function call `operator()`. 
 
 The function object is an impressive technology. A function object is a more general concept than a function 
 because a function object can have state that persist across several calls and can be initialized and examined 
 from outside the object, unlike a static local variable. For example: 
 
 \code
+
 	class sum 
 	{ public: 
 		sum() : i_(0) {} 
