@@ -12,3 +12,11 @@ Contributed by qPCR4vir
  5- open and bookmark the localy generated web site.
  
 [This is an example of what you will get](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html)
+
+# Documenting nana
+
+1. [Nana official documentation.](http://nanapro.org/en-us/help/index.htm)
+2. [Nana automatic documentation]() [See an example here](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html)
+3. [Nana Wiki](https://github.com/qPCR4vir/nana-docs/wiki)
+
+Please coolaborate!
