@@ -1,5 +1,6 @@
-# A doxygen "offline" documentation for [Nana C++ Library](https://github.com/cnjinhao/nana)
+# Documentation for [Nana C++ Library](https://github.com/cnjinhao/nana)
 Contributed by qPCR4vir
+## A doxygen "offline" documentation:
 
  1- Install [Doxygen](http://www.stack.nl/~dimitri/doxygen/download.html)
  
@@ -13,8 +14,10 @@ Contributed by qPCR4vir
  
 [This is an example of what you will get](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html)
 
-# Documenting nana
+## A Wiki
+[Read here](https://github.com/qPCR4vir/nana-docs/wiki)
 
+# Documenting nana
 
 1. [Nana official documentation.](http://nanapro.org/en-us/help/index.htm)
 2. [This Nana automatic documentation project](https://github.com/cnjinhao/nana-docs).  [See an example here](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html). To contribute:  
