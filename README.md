@@ -21,7 +21,7 @@ Contributed by qPCR4vir
  fork [nana](https://github.com/cnjinhao/nana), directly edit doxygen comments in the source code and make a pull request.  
 fork [nana-docs](https://github.com/cnjinhao/nana-docs) or [nana-docs-fork](https://github.com/qPCR4vir/nana-docs) and edit doxygen sources and request a pull.  
 fork [nana-demo](https://github.com/qPCR4vir/nana-demo) and pull your own examples.
-3. [Nana Wiki](https://github.com/qPCR4vir/nana-docs/wiki). Simple contribute at any time !!! All need revison, but these pages need urgen update:
+3. [Nana Wiki](https://github.com/qPCR4vir/nana-docs/wiki). Simple contribute at any time !!! It is [easy](https://help.github.com/articles/markdown-basics/). All need revison, but these pages need urgen update:
   + [ ] [Installation] (https://github.com/qPCR4vir/nana-docs/wiki/Installation)
   + [ ] [Widgets](https://github.com/qPCR4vir/nana-docs/wiki/Widgets)
      - [x] need creation !
