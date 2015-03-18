@@ -24,7 +24,7 @@ fork [nana-demo](https://github.com/qPCR4vir/nana-demo) and pull your own exampl
 3. [Nana Wiki](https://github.com/qPCR4vir/nana-docs/wiki). Simple contribute at any time !!! All need revison, but these pages need urgen update:
   + [ ] [Installation] (https://github.com/qPCR4vir/nana-docs/wiki/Installation)
   + [ ] [Widgets](https://github.com/qPCR4vir/nana-docs/wiki/Widgets)
-     - [ ] need creation !
+     - [x] need creation !
      - [ ] brief description of each widget
      - [ ] a sample picture with a link to the code example in nana-demo
   + [ ] [Colors and schemes](https://github.com/qPCR4vir/nana-docs/wiki/Colors-and-schemes)
