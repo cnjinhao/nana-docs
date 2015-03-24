@@ -234,3 +234,38 @@ and [nana::drawing and nana::API::update_window ](https://nanapro.codeplex.com/d
 ![](groups.png)
 
 */
+
+/**\example place_login.cpp
+![](place_illustrate.png)
+
+*/
+
+/**\example inputbox.cpp
+![]( )
+
+*/
+
+/**\example menu_debug.cpp
+![]( )
+
+*/
+
+/**\example menu_popuper.cpp
+![]( )
+
+*/
+
+/**\example windows-subclassing.cpp
+![]( )
+
+*/
+
+/**\example widget_show.cpp
+![]( )
+
+*/
+
+/**\example widget_show2.cpp
+![]( )
+
+*/
