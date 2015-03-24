@@ -19,7 +19,7 @@ Contributed by qPCR4vir
 
 # Documenting nana
 
-1. [Nana official documentation.](http://nanapro.org/en-us/help/index.htm)
+1. [Reference Manuals](http://nanapro.org/en-us/help/index.htm) by Jin Hao.
 2. [This Nana automatic documentation project](https://github.com/cnjinhao/nana-docs).  [See an example here](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html). To contribute:  
  fork [nana](https://github.com/cnjinhao/nana), directly edit doxygen comments in the source code and make a pull request to hotfix.  
 fork [nana-docs](https://github.com/cnjinhao/nana-docs) or [nana-docs-fork](https://github.com/qPCR4vir/nana-docs) and edit doxygen sources and request a pull.  
@@ -31,19 +31,26 @@ fork [nana-demo](https://github.com/qPCR4vir/nana-demo) and pull your own exampl
      - [ ] a sample picture with a link to the code example in nana-demo
      - [ ] full description of each widget
   + [ ] [Colors and schemes](https://github.com/qPCR4vir/nana-docs/wiki/Colors-and-schemes)
-     - [ ] need creation !
+     - [x] need creation !
      - [ ] How works?
   + [ ] [Events](https://github.com/qPCR4vir/nana-docs/wiki/Event-Handling)
-     - [ ] Stop propagation
+     - [x] Stop propagation
      - [ ] Emit
      - [ ] Specialized events (listbox, treebox, etc.)
   + [ ] [Layot with `place`](https://github.com/qPCR4vir/nana-docs/wiki/Layot-with--place)
      - [x] need creation !
-     - [ ] examples
+     - [x] examples
   + [ ] [`msgbox`](https://github.com/qPCR4vir/nana-docs/wiki/Message-box) 
   + [ ] [`filebox`]()
      - [ ] need creation !
   + [ ] [`Inputbox`]()
+     - [x] need creation !
+  + [ ] [`Paint`]()
+     - [ ] need creation !
+     - [ ] [`Graphics`](https://github.com/qPCR4vir/nana-docs/wiki/graphics)
+     - [ ] [`Fonts`]()
+     - [x] [`Drawing`](https://github.com/qPCR4vir/nana-docs/wiki/Drawing)
+  + [ ] [API]()
      - [ ] need creation !
   + [ ] etc.
 
