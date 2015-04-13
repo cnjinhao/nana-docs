@@ -1,6 +1,7 @@
 /**\example subclass.cpp
 */
-
+/**\example notepad.cpp
+*/
 /**
 \example calculator.cpp
 
