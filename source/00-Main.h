@@ -8,9 +8,9 @@ This is a reference documentation automaticaly generated from the source code of
 
  
 + [Nana C++ Library - An Open Source C++ Project](http://nanapro.org/):,  [Discussion: ideas, questions, bugs](http://nanapro.org/en-us/discuss.htm)
-+ [Donwload & tickets - Sourceforge](https://sourceforge.net/projects/nanapro/): [GitHub repository & issues](https://github.com/cnjinhao/nana), [old CodePlex](https://nanapro.codeplex.com/)
++ Repository & issues on [GitHub ](https://github.com/cnjinhao/nana), Donwload & tickets on [Sourceforge](https://sourceforge.net/projects/nanapro/), old code and discusions on [CodePlex](https://nanapro.codeplex.com/)
 + Documentation: [Reference Manuals](http://nanapro.org/en-us/help/index.htm), [Nana Wiki](https://github.com/qPCR4vir/nana-docs/wiki), [Doxygen-sources for this site](https://github.com/qPCR4vir/nana-docs), [on-line Doxy-Docs](http://qpcr4vir.github.io/nana-docs/nana-doxy/index.html) 
-+ Blogs:[ - Sourceforge](https://sourceforge.net/p/nanapro/blog/), [Nana's Mill - WordPress](https://nanaproject.wordpress.com/)
++ Blogs: [Sourceforge](https://sourceforge.net/p/nanapro/blog/), [Nana's Mill - WordPress](https://nanaproject.wordpress.com/)
 + [User reference documentation](../../nana.Doxygen/html/index.html), [Developers reference documentation](../../nana.dev.Doxygen/html/index.html)
 + \link nana::widget Widgets\endlink: 
 \link nana::button button\endlink, 
