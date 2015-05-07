@@ -4,24 +4,26 @@
 
 \section WhatIs  What is Nana C++ Library? 
 
-The Nana project is aimed at providing a software framework for cross-platform GUI programming, 
-with commponents, such as graphics user interface and threads. Nana is a free/open-source 
-library written in C++ with Object Oriented and Generic programing.
+The Nana project is aimed at providing a software framework for cross-platform GUI programming in standard and modern C++, with components, such as graphics user interface and threads, written with Object Oriented and Generic programing.  
+Being written in Standard C++ means that Nana works great with modern C++ features, such as lambdas, concurrency, the STL and so on. It will give you wonderful experiences on GUI programming with C++11.   
 
-Nana is a C++ library, in Standard C++, that means it work great with modern C++ features, 
-such as lambdas, concurrency and so on. It will give you wonderful experiences on GUI 
-programming with C++11. Using its own widgets, drawing functions abstracted from the 
-Nana abstract GUI system, it allows for writting programs on supported OS, such as Windows/Linux(X11).
+It also means that you will not need to use or learn any non standard extension or magic macros for obscure code generation. Only standard use of templates will make some kind of code generation. In fact only **very few** macros are used, and **exclusively for configuration**.  
 
+It also means that there aren't any re implementation of string or any other std:: containers.  
+Using its own widgets and drawing functions abstracted with the Nana abstract GUI system, it allows for writing portables programs on supported OS, such as Windows/Linux(X11).  
 
-Nana is a free/open-source library, it is distributed under *Boost Software License*, 
-which is a lax, permissive non-copyleft free software license. Now, Nana is trying to 
-build an active developer community to give help in using this library.
+Aimed solely at GUI, Nana not pollute your executable with anything innecesary: typical statically linked release-executables will be of few MB (1 to 3 even for non trivial application, less than 1 MB for the demos). This make Nana ideal for beginners (no need of any installation to distribute - you will not have the problem: it works only in my machine!), but also to distribute applications in many large organizations where users can run programs but not change the systems.
+
+Nana is a free/open-source library distributed under *Boost Software License*, which is a lax, permissive non-copyleft free software license.   
+Now, Nana is trying to build an active developer community to give help in using this library.
 
 \section Install  Installation 
 
 
-[This page can be outdated. Please visit the original](http://nanapro.org/en-us/help/instl_lib_doc.htm).
+[This page can be outdated. Please visit the original](http://nanapro.org/en-us/help/instl_lib_doc.htm),
+or the [Installation Wiki](https://github.com/qPCR4vir/nana-docs/wiki/Installation)  
+
+Is very simple. Basically you copy the source code of nana (which is tiny: 0.5 MB in zip) and tell your build system where it is. Follow the [link](https://github.com/qPCR4vir/nana-docs/wiki/Installation) for detailed information. 
 
 When you extract the library from its zip files, you have to install the library and configurate it before using. 
 There is a general steps to install the library.
