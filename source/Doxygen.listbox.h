@@ -1,6 +1,0 @@
-/** \class nana::listbox
-\brief 
-
-
-
-*/
