@@ -132,6 +132,44 @@ function or a functor with a  `const nana::eventinfo&` parameter or not.
 */
 /**\example lambda_event.Cpp11.cpp
 */
+
+/**\example file_explorer.cpp
+*/ 
+
+/**\example drag-button.cpp
+*/ 
+
+/**\example folder_tree_nana.cpp
+*/ 
+/**\example  folder_tree_std.cpp
+*/ 
+/**\example framework_design_1.cpp
+*/ 
+/**\example framework_design_3.cpp
+*/ 
+/**\example framework_design_2.cpp
+*/ 
+/**\example group.cpp
+*/ 
+/**\example 
+*/ 
+/**\example 
+*/ 
+/**\example  screen.cpp
+*/ 
+/**\example  
+*/ 
+/**\example 
+*/ 
+/**\example 
+*/ 
+/**\example 
+*/ 
+/**\example 
+*/ 
+
+
+
 /**\example MontiHall.cpp
 */
 /**\example loader_1.cpp
