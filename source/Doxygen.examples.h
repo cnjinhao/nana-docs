@@ -1,5 +1,8 @@
-/**\example subclass.cpp
+/**
+\example subclass.cpp
+ */
 */
+
 /**\example notepad.cpp
 */
 /**
@@ -16,8 +19,14 @@ Using nana::place which is introduced into Nana in the version of 0.5, we can cr
 Let's start the code.
 
 */
-/**\example FreeMe.cpp
-# [The FreeMe](http://nanapro.sourceforge.net/help/tutorials/thefreeme.htm)
+
+/**
+
+\example freeme.cpp
+
+
+
+[The FreeMe](http://nanapro.sourceforge.net/help/tutorials/thefreeme.htm)
 
 ![UI of The FreeMe](freeme.png)
 
@@ -40,13 +49,19 @@ form, picture, label, button, progressbar, file_iterator, thread and less than 4
 [Code](http://searchcode.com/codesearch/view/27847828)
 */
 
-/**\example HelloWord.cpp
+/**\example helloword.cpp
 */
+
 /**\example clicked.cpp
 */
+
 /**\example threading.cpp
 */
-/**\example HelloWord-Quit.cpp
+
+/** 
+
+\example helloword_quit.cpp
+
 ![Screenshot](Quit.jpg)
 
 Walkthrough Line-by-line
@@ -128,9 +143,10 @@ function or a functor with a  `const nana::eventinfo&` parameter or not.
 
 
 */
-/**\example various_events.Cpp11.cpp
+/**\example various_events.cpp11.cpp
 */
-/**\example lambda_event.Cpp11.cpp
+
+/**\example lambda_event.cpp11.cpp
 */
 
 /**\example file_explorer.cpp
@@ -141,71 +157,67 @@ function or a functor with a  `const nana::eventinfo&` parameter or not.
 
 /**\example folder_tree_nana.cpp
 */ 
+
 /**\example  folder_tree_std.cpp
 */ 
+
 /**\example framework_design_1.cpp
 */ 
+
 /**\example framework_design_3.cpp
 */ 
+
 /**\example framework_design_2.cpp
 */ 
+
 /**\example group.cpp
 */ 
-/**\example 
-*/ 
-/**\example 
-*/ 
+
 /**\example  screen.cpp
 */ 
-/**\example  
-*/ 
-/**\example 
-*/ 
-/**\example 
-*/ 
-/**\example 
-*/ 
-/**\example 
-*/ 
 
-
-
-/**\example MontiHall.cpp
+/**\example montihall.cpp
 */
+
 /**\example loader_1.cpp
 */
+
 /**\example loader_2.cpp
 */
+
 /**\example modal_form.cpp
 */
+
 /**\example decore.cpp
 */
+
 /**\example png.cpp
 */
+
 /**\example mbox.cpp
 */
-/**\example design_1.cpp
-*/
-/**\example design_2.cpp
-*/
-/**\example design_3.cpp
-*/
+
 /**\example categ.cpp
 ![Screenshot of categorize.](categorize.jpg)
 */
+
 /**\example example_listbox.cpp
 */
+
 /**\example example_menu.cpp
 */
+
 /**\example window-dragger.cpp
 This example sets `btn` and `adherent` to be triggers, and dragger will move the form and adherent when 
 the user is dragging the trigger widgets.
 */
+
 /**\example draw.cpp
 
 Draw a 10 X 10 red rectangle at the point(5, 5).
 
 */
+
 /**\example background-effects.cpp
 
 ![](effect_mode.png)
@@ -213,10 +225,13 @@ Draw a 10 X 10 red rectangle at the point(5, 5).
 
 \todo docs: add txt from [http://stdex.sourceforge.net/help/gui/background_effects.htm]
 */
+
 /**\example animate-bmp.cpp
 */
+
 /**\example filebox-txt.cpp
 */
+
 /**\example stretch_image.cpp
 # Nana provides the image processors:
 + Stretch algorithms:
@@ -246,17 +261,21 @@ Result of application:
 ![proximal interoplation - Stretch the image through proximal interoplation](fit_window_proximal_interoplation.png)
 
 */
+
 /**\example audio_player_simple.cpp
 */
+
 /**\example audio_player.cpp
  Play an audio file asynchronously. Play the audio when a button is clicked, and it does not block the UI thread.
 
 */
+
 /**\example thread-pool.cpp
 
 The signal()/wait_for_signal() provide a method to wait for tasks to finish.
 
 */
+
 /**\example drag-button.cpp
 See [How to make widget movable by mouse the best way](https://nanapro.codeplex.com/discussions/444058)
 
