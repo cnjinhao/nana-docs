@@ -4,7 +4,7 @@ This is a reference documentation automaticaly generated from the source code of
 
 # GUI programming in modern C++ style
 
-![by Jinhao](nana.jpg) v1.0.2 with examples
+![by Jinhao](nana.jpg)
 
  
 + [Nana C++ Library - An Open Source C++ Project](http://nanapro.org/):,  [Discussion: ideas, questions, bugs](http://nanapro.org/en-us/discuss.htm)
