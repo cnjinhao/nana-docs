@@ -1,6 +1,6 @@
 /**
 This is a reference documentation automaticaly generated from the source code of Nana.
-\mainpage Welcome to the Nana C++ Library reference documentation
+\mainpage Welcome to the Nana C++ Library reference documentation v1.0.2 with examples
 
 # GUI programming in modern C++ style
 
