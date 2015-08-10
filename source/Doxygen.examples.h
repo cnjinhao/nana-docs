@@ -327,3 +327,8 @@ and [nana::drawing and nana::API::update_window ](https://nanapro.codeplex.com/d
 ![]( )
 
 */
+
+/**\example listbox_inline_widget.cpp
+![Inline Widget Screenshot](http://nanapro.org/wiki_img/listbox_inline_widget/screenshot.png)
+
+*/
