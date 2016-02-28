@@ -101,93 +101,60 @@ This lesson is indented to get you started programming with Nana.GUI. Let's read
 \include Examples\helloword_quit.cpp
 ![Screenshot](Quit.jpg)
 
+\dontinclude Examples\helloword_quit.cpp
 Walkthrough Line-by-line
 
-	#include <nana/gui/wvl.hpp>
-
+\line wvl.hpp
 This line includes the Nana.GUI class definition. 
 
-	#include <nana/gui/widgets/button.hpp>
-
+\line  button.hpp 
 This line includes the Nana.GUI.button class definition. 
 
-	int main()
-	{
-
+\skip main
+\until {
 The `main()` function is the entry point to the program. Almost always when using Nana.GUI, 
 `main()` only needs to perform some kind of initialization before passing the control to the Nana.GUI 
 library, which then tells the program about the user's actions via events.
 
-    using namespace nana;
-
+\line  nana
 Specify the nominated namespace `nana` can be used in `main` function block scope. 
-In this example, the names `form`, `button`, `events`, `API` and `exec` are defined in the namespace `nana`.
-With this using-directive, we can use these names directly in the `main` function scope.
+In this example, the names `form`, `button`, `events`, `API` and `exec` are defined in the namespace `nana`. With this using-directive, we can use these names directly in the `main` function scope.
 
-	form fm;
-
+\line  fm 
 This is the first piece of window-system code. A `form` is created while the variable `fm` is defined.
-The `form` is a window with title bar and a sizable border frame, it's fundamental that you can put 
+The `form` is a window with title bar and a sizeable border frame, it's fundamental that you can put 
 some widgets above it. 
 
-	fm.caption(STR("Hello World"));
-
+\line  fm.caption 
 Set the `form` to display the text "Hello World" in its title bar. 
 
-	button btn(fm, nana::rectangle(20, 20, 150, 30));
-
+\line button 
 After the `form`, a button is created. In its constructor arg-list, the first argument tells 
 the `btn` who the parent window is, and the following arguments describe the position and size of `btn`. 
 
-	btn.caption(STR("Quit"));
-
+\line btn.caption
 Set the `btn` to display the text "Quit". 
 
-	btn.events().click(API::exit);
-
+\line btn.events
 `event()` is a method that every Nana.GUI widgets provide, you can register an event callback 
 by using it. We want to exit the program while a mouse clicks on the btn. Now, register a callback
 function on `click` event. 
 
-	form.show();
-
+\line form.show
 A form widget is never visible when you create it. You must call show() to make it visible. 
-
-	::nana::exec();
-
-This is where the main() passes the control to Nana.GUI, and exec() will return when the 
+\line exec
+This is where the main() passes the control to Nana.GUI. exec() will return when the 
 application exists. In exec(), Nana.GUI processes the message loop and passes every event 
 on to the appropriate widgets. 
 
-	}
-
-You should now save and compile the program.
-
-Further
-
-	STR("Hello World")
-
-What is `STR`? `STR` is a macro that tell your compiler a that the literal string is a  wide-byte string 
-if `NANA_UNICODE` is defined in *config.hpp*, otherwise - multi-byte. With `STR` you can easier switch your program 
-between multi-byte and wide-byte. 
-
-\todo Better explain what STR() is. No run-time cost: just preprocesing, 100%. Clean and simple.
-
-See [Use of std::string with char16_t or char32_t instead nana::string in c++11 version ](https://sourceforge.net/p/nanapro/discussion/general/thread/fc165711/)
-
-See ...
-
-
-	btn.events().click(nana::API::exit);
-
 What is nana::API::exit? This is an API provided by Nana.GUI. Its prototype is
 void exit(). If exit() is called, Nana.GUI destroy all the windows you've created and 
-the exec() will return. Member event().click() has a template argument. The argument can be a
+the exec() will return. Member `event().click()` has a template argument. The argument can be a
 function or a functor with a  `const nana::arg_mouse&` parameter or not. 
 
 Is it right to invoke exit() in an event callback? 
 
-It is right because Nana.GUI guarantees a program correctnets even when an invalid GUI objects handle is accesses .
+It is right because Nana.GUI guarantees a program correctness even when an invalid GUI objects handle is accesses .
 
 
 
