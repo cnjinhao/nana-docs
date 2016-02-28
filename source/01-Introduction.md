@@ -41,41 +41,13 @@ in doing GUI with your immense and extensive C++ knowledge/skill/idioms. It make
 progress in doing GUI in C++.
 
 How easy is to create a Hello World program with Nana?
-
-	#include <nana/gui/wvl.hpp>
-	#include <nana/gui/widgets/label.hpp>
-
-	int main()
-	{
-  		using namespace nana;
-  		form    fm;
-  		label   lb(fm, fm.size());
- 		lb.caption(STR("Hello, World"));
- 		fm.show();
- 		exec();
-	}
+\include Examples\HelloWord.cpp
 
 Pretty easy, with understandable code. Nana brings very simple and reasonable concepts 
 to keep it easy. Secondly, unlike other frameworks, that make you write stiff code due 
 to name and syntax constraints, Nana can make your code more straightforward and readable. 
 For example, answering an event.
-
-	#include <nana/gui/wvl.hpp>
-	#include <nana/gui/widgets/button.hpp>
-
-	void clicked(const nana::arg_mouse&)
-	{
-		 //When the window  fm  is clicked, this function will be "called".
-	}
-
-	int main()
-	{
- 		using namespace nana;
- 		form fm;
- 		fm.events().click(clicked);
- 		fm.show();
- 		exec();
-	}
+\include Examples\clicked.cpp
 
 The name of `clicked` function is not constrained. You can give it any other name you want. 
 It is more straightforward than implementing an event handler from inheritance. 
@@ -94,12 +66,10 @@ What makes Nana so flexible?
 
 Nana C++ Library does not contain any "extra compilers" to parse "special syntax", 
 Nana uses 100% C++ and the template techniques make this library very powerful and 
-flexible. Nana is unlike other template-based library that causes a lot of code bloat 
-and requires programmers have template-skilled, it's newbie-friendly.
+flexible. Unlike other template-based library don't causes code bloat 
+and don't requires programmers to be template-skilled: it's newbie-friendly.
 
-Nana is a complete C++ style library that compile on Visual C++ 2013/GCC 4.8 and later. 
-If you are a C++ expert, Nana allows you to use lambda, a new feature of C++11, for event 
-answering. Like this:
+Nana allows you to use lambda, a feature of C++11, for event answering. Like this:
 
 	fm.events().click( []{	//When the form is clicked, the object  	
 			           			        //created by this lambda will be "called".
@@ -107,36 +77,17 @@ answering. Like this:
 
 or
 
-	fm.events().click( [](const arg_mouse& ei){ 
+	fm.events().click( [](const arg_click& ei){ 
 										//When the form is clicked, the object created
  										//by this lambda will be "called", and I can
  										//read the parameter.
  								   });
 
-Additionally, Nana would make code flexible with `std::bind` in C++11.
+Additionally, Nana can make use of `std::bind`.
 \subsection Threading Threading 
 Nana is a thread-safe library and accessing a widget between threads is normalized. 
 This is a great feature that makes programmer deliver the event answer to other thread easier.
-
-	#include <nana/gui/wvl.hpp>
-	#include <nana/threads/pool.hpp>
-	void foo()
-	{
-	  //This function will be "called" in other thread created by thread pool.
-	}
-	int main()
-	{
-	  using namespace nana;
-	  using namespace nana::threads;
- 		pool thrpool;
- 		form fm;
- 		fm.events().click(pool_push(thrpool, foo));
- 		fm.events().click(pool_push(thrpool, []{
- 												  //A lambda is also allowed.
- 										  }));
- 		fm.show();
- 		exec();
-	}
+\include Examples\threading.cpp
 
 \subsection RAII RAII  
 This is an important feature. As shown in the above examples, as soon as a `form` object is created, 
@@ -144,35 +95,10 @@ its corresponding window is created, but the window is invisible till the `show(
 for the `form` object. As soon as the `form` object is destructed, its corresponding window is 
 closed: this conforms with the C++ object life-time concept.
 
-\subsection Cross Cross-Platform Programming 
-Nana C++ Library is designed to be used for cross-platform programming. 
-Its first release was under Windows. Now, the library is ported to Linux(X11).
-
-The Most Important Feature: Free
-
-Nana C++ Library is an open-source; it's free for both commercial and non-commercial use.
-
-
 \section Hello Hello World  
 
 This lesson is indented to get you started programming with Nana.GUI. Let's read the simple HelloWorld code. 
-
-	#include<nana/gui/wvl.hpp>
-	#include <nana/gui/widgets/button.hpp>
-
-	int main()
-	 {
-		 using namespace nana;
-
-		 form fm;
-		 fm.caption(STR("Hello World"));
-		 button btn(fm, nana::rectangle(20, 20, 150, 30));
-		 btn.caption(STR("Quit"));
-		 btn.events().click(API::exit);
-		 fm.show();
-		 exec();
-	 }
-
+\include Examples\helloword_quit.cpp
 ![Screenshot](Quit.jpg)
 
 Walkthrough Line-by-line
