@@ -1,6 +1,6 @@
 /**
-This is a reference documentation automaticaly generated from the source code of Nana.
-\mainpage Welcome to the Nana C++ Library reference documentation. {for nana hotfixes-1.1.1 August 2015 17:09:16}
+Automatically generated from the source code of Nana.
+\mainpage Reference documentation. {for nana users, hotfix-1.3, 2016-02-19}
 
 # GUI programming in modern C++ style
 
@@ -8,7 +8,7 @@ This is a reference documentation automaticaly generated from the source code of
 
  
 + [Nana C++ Library - An Open Source C++ Project](http://nanapro.org/):,  [Discussion: ideas, questions, bugs](http://nanapro.org/en-us/discuss.htm)
-+ Repository & issues on [GitHub ](https://github.com/cnjinhao/nana), Donwload & tickets on [Sourceforge](https://sourceforge.net/projects/nanapro/), old code and discusions on [CodePlex](https://nanapro.codeplex.com/)
++ Repository & issues on [GitHub ](https://github.com/cnjinhao/nana), Download & tickets on [Sourceforge](https://sourceforge.net/projects/nanapro/), old code and discussions on [CodePlex](https://nanapro.codeplex.com/)
 + Documentation: [Reference Manuals](http://nanapro.org/en-us/help/index.htm), [Nana Wiki](https://github.com/qPCR4vir/nana-docs/wiki), [Doxygen-sources for this site](https://github.com/qPCR4vir/nana-docs), [this on-line Doxy-Docs](http://qpcr4vir.github.io/nana-doxy/html/index.html) 
 + Blogs: [Sourceforge](https://sourceforge.net/p/nanapro/blog/), [Nana's Mill - WordPress](https://nanaproject.wordpress.com/)
 + [User reference documentation](../../nana.Doxygen/html/index.html), [Developers reference documentation](../../nana.dev.Doxygen/html/index.html)
@@ -21,6 +21,7 @@ This is a reference documentation automaticaly generated from the source code of
 \link nana::form form\endlink,  
 \link nana::nested_form nested_form\endlink,  
 \link nana::frame frame\endlink,  
+\link nana::group group\endlink,  
 \link nana::label label\endlink,  
 \link nana::listbox listbox\endlink,  
 \link nana::menu menu\endlink, 
