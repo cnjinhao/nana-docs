@@ -53,13 +53,13 @@ The name of `clicked` function is not constrained. You can give it any other nam
 It is more straightforward than implementing an event handler from inheritance. 
 In some situations, we don't need to care about the parameter of `clicked()` function, 
 like in the example:
-
+\code{.cpp}
 	void clicked() //NO parameter defined.
 	{
  		//When the form is clicked, this function will be "called".
 	}
 	fm.events().click(clicked);    //Nana allows!
-
+\endcode
 Very flexible, and keep your code simple. And this feature can be applied with function object.
 
 What makes Nana so flexible?
@@ -70,19 +70,19 @@ flexible. Unlike other template-based library don't causes code bloat
 and don't requires programmers to be template-skilled: it's newbie-friendly.
 
 Nana allows you to use lambda, a feature of C++11, for event answering. Like this:
-
+\code{.cpp}
 	fm.events().click( []{	//When the form is clicked, the object  	
 			           			        //created by this lambda will be "called".
  						            });
-
+\endcode
 or
-
+\code{.cpp}
 	fm.events().click( [](const arg_click& ei){ 
 										//When the form is clicked, the object created
  										//by this lambda will be "called", and I can
  										//read the parameter.
  								   });
-
+\endcode
 Additionally, Nana can make use of `std::bind`.
 \subsection Threading Threading 
 Nana is a thread-safe library and accessing a widget between threads is normalized. 

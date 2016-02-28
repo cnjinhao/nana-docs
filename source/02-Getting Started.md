@@ -22,15 +22,14 @@ This chapter shows how to create an small graphical user interface (GUI) applica
 
 Let's start with a simple program, we will study it line by line. 
 
-\code
-
+\code{.cpp}
 	1 #include <nana/gui/wvl.hpp> 
 	2 #include <nana/gui/widgets/label.hpp> 
 	3 int main() 
 	4 { 
 	5 	nana::form form; 
 	6 	nana::label label(form, nana::rectangle(0, 0, 100, 20)); 
-	7 	label.caption(STR("Hello Nana")); 
+	7 	label.caption("Hello Nana");
 	8 	form.show(); 
 	9 	nana::exec(); 
 	  } 
@@ -43,40 +42,23 @@ Line 5 defines a `nana::form object`. It is a window used for placing a label wi
 
 Line 6 defines a `nana::label` object to display a text string. The label object is created in the form. A widget is a visual element in the user interface. 
 
-Line 7 sets the caption of the label object. Every widget has a caption for displaying a title. In this line, there is a string within a macro named `STR`, 
-this macro is a literal string wrapper used to easy switch the application between UNICODE and ASCII version. 
+Line 7 sets the caption of the label object. Every widget has a caption for displaying a title. 
 
 Line 8 makes the form visible. 
 
-Line 9 passes the control of the application to Nana. At this point, the program enters the event loop for waiting for
-and receiving a user action, such as mouse move, mouse click and keyboard press. The function `nana::exec` blocks till
-`form` is destroyed, and what the example demonstrate is that the program exits when a user closes the window. 
+Line 9 passes the control of the application to Nana. At this point, the program enters the event loop for waiting for and receiving a user action, such as mouse move, mouse click and keyboard press. The function `nana::exec` blocks till `form` is destroyed, and what the example demonstrate is that the program exits when a user closes the window. 
 
 ![Figure 1.1 Hello Nana](HelloNana.jpg)
 
 Now, you can run the program on your own machine. But firstly you should have Nana C++ Library 
-installed in your system. A method to install is explained in [Installation Library Documentation](http://nanapro.org/en-us/help/instl_lib_doc.htm) 
-in Nana Programmer`s Guide. 
+installed in your system. A method to install is explained in [Installation Library Documentation](http://nanapro.org/en-us/help/instl_lib_doc.htm) in Nana Programmer`s Guide or [in the wiki](https://github.com/qPCR4vir/nana-docs/wiki/Installation) 
 
-\subsection Event Making An Event  
+
+\subsection Event Responding an Event  
 The second example shows how to respond a user action. To receive a user action, an event 
 handler should be registered to a widget. Nana waits for a user action and invokes the event 
 handler of the corresponding event. The example application consists of a button that the user can click to quit. 
-
-\code
-	#include <nana/gui/wvl.hpp> 
-	#include <nana/gui/widgets/button.hpp> 
-	int main() 
-	{ 
-		using namespace nana; 
-		form fm; 
-		button btn(fm, 0, 0, 100, 20); 
-		btn.caption(STR("Quit")); 
-		btn.events().click(API::exit); 
-		fm.show(); 
-		exec(); 
-	} 
-\endcode
+\include Examples\helloword_quit.cpp
 
 This source code is similar to Hello Nana, except that we are using a button instead of a label, and 
 we are making an event to respond a user click. Every widget class has a set of methods to make events, 
@@ -90,16 +72,12 @@ the event loop. It will be called when the user clicks the button.
 
 \section Functor Function Objects  
 
-This chapter shows two basic concepts: function object and lambdas. Function object is a requirement to understand Nana C++ Library. 
+This chapter shows two basic concepts: function objects and lambdas.
+A Function Object, or Functor (the two terms are synonymous) is simply any object that can be called as if it is a function. It can be an object of a class that defines a member function `operator()`.
 
-A Function Object, or Functor (the two terms are synonymous) is simply any object that can be called as 
-if it is a function. More generally, it is an object of a class that defines a function call `operator()`. 
+The function object is an impressive technology. A function object is a more general concept than a function because a function object can have state that persist across several calls and can be initialized and examined from outside the object, unlike a static local variable. For example:
 
-The function object is an impressive technology. A function object is a more general concept than a function 
-because a function object can have state that persist across several calls and can be initialized and examined 
-from outside the object, unlike a static local variable. For example: 
-
-\code
+\code{.cpp}
 
 	class sum 
 	{ public: 
@@ -118,70 +96,13 @@ from outside the object, unlike a static local variable. For example:
 \endcode
 
 `std::for_each()` returns a copy of the object `sum`, and we are able to retrieve the state or result. 
-On the basis of the feature that function objects retain its own state, it is easy used for concurrency 
-process, and it is extensively used for providing flexibility in the library implementation. 
+On the basis of the feature that function objects retain its own state, it is easy used for concurrency process, and it is extensively used for providing flexibility in the library implementation.
 
-Nana C++ Library uses a large number of function objects to make the framework work. 
-To make the framework flexible enough, Nana C++ Library the general std::function class template: 
+Nana C++ Library uses a large number of function objects to make the framework work. To make the framework flexible enough, Nana C++ Library uses the general std::function class template.
 
-	template<typename Ftype> class nana::functor; 
-
-The template parameter Ftype specify what function type the functor delegates. By using the functor 
-class template, we are able to make Nana C++ Library get rid of types that involved. For example: 
-
-\code
-    #include <nana/gui/wvl.hpp> 
-    #include <iostream> 
-    void foo() 
-    { 
-        std::system("cls"); 
-        std::cout<<"foo"<<std::endl; 
-    } 
-    void foo_with_eventinfo(const nana::arg_mouse& ei) 
-    { 
-      std::cout << "foo_with_eventinfo, mouse pos = ("
-       << ei.pos.x  << ", "  <<  ei.pos.y  << ")" << std::endl; 
-    } 
-    class click_stat 
-    { public: 
-        click_stat(): n_(0) {} 
-        void respond   ()   { std::cout<<"click_stat = "<<++n_<<std::endl; } 
-        void respond_ei(const nana::arg_mouse& ei) 
-        { 
-             std::cout << "click_state width eventinfo = " << n_ 
-            << ", mouse pos = ("  <<ei.pos.x<<", "<<ei.pos.y<<")"
-            << std::endl; 
-        } 
-     private: 
-       int n_; 
-    }; 
-
-    int main() 
-    { 
-        using namespace nana; 
-        using fun_t            = std::function<void(                )>  ; 
-        using fun_with_param_t = std::function<void(const arg_mouse&)>  ; 
-
-        form        fm; 
-        click_stat  cs; 
-    
-        fun_t       f=foo; 
-        fm.events().click(f); 
-
-        fun_with_param_t fp(foo_with_eventinfo); 
-        fm.events().click(fp); 
-
-        f= std::bind( &click_stat::respond, cs); 
-        fm.events().click(f ); 
-
-        fp= std::bind( &click_stat::respond_ei, cs , std::placeholders::_1 );
-        fm.events().click(fp); 
-
-        fm.show(); 
-        exec(); 
-    } 
-\endcode
-
+By using the functor class template, we are able to make Nana C++ Library get rid of types that involved. For example:
+\include C:\Prog\ExtLib\nana-demo\Examples\various_events.cpp
+![](https://raw.githubusercontent.com/qPCR4vir/nana-demo/master/Examples/events.png)
 There are four different types of event handlers that can be processed. It is flexible and reduce the complexity of study and use. 
 
 ![Figure 2.1 Various methods to make events to respond click.] (make_event.jpg)
@@ -190,7 +111,7 @@ In the previous example, we illustrated the use of std::function and the flexibi
 function object. Practically, creating a functor object is not required. Using these 
 functions this way instead of creating a functor: ?????
 
-\code
+\code{.cpp}
 	int main() 
 	{ 
 		using namespace nana; 
