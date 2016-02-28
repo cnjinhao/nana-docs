@@ -4,15 +4,15 @@
 
 \section WhatIs  What is Nana C++ Library? 
 
-The Nana project is aimed at providing a software framework for cross-platform GUI programming in standard and modern C++, with components, such as graphics user interface and threads, written with Object Oriented and Generic programing.  
+The Nana project is aimed at providing a software framework for cross-platform GUI programming in standard and modern C++, with components, such as graphics user interface and threads, written with Object Oriented and Generic programming.  
 Being written in Standard C++ means that Nana works great with modern C++ features, such as lambdas, concurrency, the STL and so on. It will give you wonderful experiences on GUI programming with C++11.   
 
-It also means that you will not need to use or learn any non standard extension or magic macros for obscure code generation. Only standard use of templates will make some kind of code generation. In fact only **very few** macros are used, and **exclusively for configuration**.  
+It also means that you will not need to use or learn any non standard extension or magic macros for obscure code generation. Only standard use of templates will make some kind of code generation. In fact no macros are used, and only a few `#define` are used **exclusively for configuration**.  
 
-It also means that there aren't any re implementation of string or any other std:: containers.  
+It also means that there aren't any re implementation of string or any other `std::` containers.  
 Using its own widgets and drawing functions abstracted with the Nana abstract GUI system, it allows for writing portables programs on supported OS, such as Windows/Linux(X11).  
 
-Aimed solely at GUI, Nana not pollute your executable with anything innecesary: typical statically linked release-executables will be of few MB (1 to 3 even for non trivial application, less than 1 MB for the demos). This make Nana ideal for beginners (no need of any installation to distribute - you will not have the problem: it works only in my machine!), but also to distribute applications in many large organizations where users can run programs but not change the systems.
+Aimed solely at GUI, Nana not pollute your executable with anything unnecessary: typical statically linked release-executables will be of few MB (1 to 3 even for non trivial application, less than 1 MB for the demos). This make Nana ideal for beginners (no need of any installation to distribute - you will not have the problem: it works only in my machine!), but also to distribute applications in many large organizations where users can run programs but not change the systems.
 
 Nana is a free/open-source library distributed under *Boost Software License*, which is a lax, permissive non-copyleft free software license.   
 Now, Nana is trying to build an active developer community to give help in using this library.
@@ -20,124 +20,11 @@ Now, Nana is trying to build an active developer community to give help in using
 \section Install  Installation 
 
 
-[This page can be outdated. Please visit the original](http://nanapro.org/en-us/help/instl_lib_doc.htm),
-or the [Installation Wiki](https://github.com/qPCR4vir/nana-docs/wiki/Installation)  
+[Please visit the wiki](https://github.com/qPCR4vir/nana-docs/wiki/Installation)  
 
 Is very simple. Basically you copy the source code of nana (which is tiny: 0.5 MB in zip) and tell your build system where it is. Follow the [link](https://github.com/qPCR4vir/nana-docs/wiki/Installation) for detailed information. 
 
 When you extract the library from its zip files, you have to install the library and configurate it before using. 
-There is a general steps to install the library.
-\subsection General General
-
-#### Some terms for this instruction:
-+ *NanaPath*: The path where Nana's files are located.
-+ *IDEName*: The name of a certain Integrated Development Environments. Such as vc2013.
-+ *NanaStatic*: The generated Nana static linkage file, a *.lib/*.a file.
-+ *BoostPath*: The path where Boost C++ Libraries are located.
-
-#### Step One:
-Start the IDE you use, set C++ include path and library path.
-+ Include Path: *NanaPath*/include
-+ Library Path: *NanaPath*/extrlib, *NanaPath*/build/bin/IDEName.
-
-#### Step Two:
-Create a static linkage library solution within a IDE which you use, and add all the files 
-which are placed in *NanaPath*/source and in its all sub directiories to the solution. 
-Then compile the solution and you will get a static linkage file *NanaStatic* in the path *NanaPath*/build/bin/IDEName.
-
-#### Step Three:
-Write a program and use Nana to create a GUI, and compile it with the *NanaStatic* file linked. 
-Make sure that enable the compiler for supports of RTTI, MultiThreading and exception.
-
-\subsection Microsoft Microsoft Visual C++
-1. Set directories
-
-   Add the Include Path *NanaPath*/include and the Library Path *NanaPath*/build/bin/IDEName and *NanaPath*/extrlib.
-   #### Microsoft Visual C++ 2013
-   Open the directory of "%UserProfile%/AppData/Local/Microsoft/MSBuild/v4.0", the %UserProfile% is a system environment variable. 
-   Then you can find some files which are named like "Microsoft.CPP.XXX.user.props", choose one of them for your target platform, and edit it as follow:
-	
-	Insert "NanaPath/include" to the section <IncludePath>.
-	
-	Insert "NanaPath/build/bin/IDEName(e.g. vc2013)" and "NanaPath/extrlib" to the section <LibraryPath>, and split them up with a semicolon.
-
-2. Compile Nana C++ Library
-	
-	Open "NanaPath/build/IDEName(e.g. vc2013)/Nana.sln" with Visual C++. Click the menu Build->Rebuild All.  After building, a NanaStatic(e.g. nana_debug.lib, nana_release.lib) file should be generated in "NanaPath/build/bin/IDEName".
-
-3. Programming with Nana C++ Library
-	
-	Create a Win32 Application Project, and make it as an empty project.
-	
-	Change properties of the project. Open the solution Properties Dialog.
-
-	MDd and MTd for Debug Mode; MD and MT for Release Mode.
-	Choosing the MD/MDd or MT/MTd depends on the property which is chose for building the Nana.
-
-	Link the NanaStatic file.
-
-	Input the name of NanaStatic file, such as nana_debug.lib or nana_release.lib.
-
-\subsection Code Code::Blocks
-1. Set directories
-	
-	Click menu Settings->Compiler... to open Global compiler settings dialog. Then, select Search directories->Compiler tab.
-
-	Add "NanaPath/include".
-	
-	Add "/usr/include/freetype2" when it is in Linux. (The path of freetype2 may be different, it depends on your system).
-	
-	And then, switch to the "Linker" and add "NanaPath/build/codeblocks".
-
-2. Compile Nana C++ Library
-
-	MinGW
-	Configure the Boost C++ Library for Nana.C++11(Skip this step if you are installing Nana.C++03)
-
-	The Boost C++ Library is required due to <thread>, <mutex> and <condition_variable> being not supported by MinGW 4.7.x
-	1. Insert the Boost includ directory to the "Settings->Compiler...->Search directories->Compiler".
-	2. Append the MinGW path(e.g "C:\Program Files\CodeBlocks\MinGW\bin") to the "Path" which is one of Global Environment Variables.
-	3. Open the "BoostPath/boost/thread/detail/config.hpp" header file and find the following lines.
-    
-			# if defined(BOOST_THREAD_PATH_WIN32)
-			#      if defined(BOOST_MSVC) || defined(BOOST_INTEL_WIN)
-
-		and modify
-
-			# if defined(BOOST_THREAD_PATH_WIN32)
-			#      if defined(BOOST_MSVC) || defined(BOOST_INTEL_WIN) || defined(__MINGW32__) || defined(MINGW32) || defined(BOOST_MINGW32)
-	4. Compile the Boost.Thread
-    
-			bjam toolset=gcc --build-type=complete --with-thread
-	5. Add the Boost C++ Libraries to the Code::Blocks.
-		
-		"Settings->Compiler...->Linker Settings" add libraries in the following order.
-			
-			libboost_system-mgwXX-mt-s-XXX.a
-			libboost_thread-mgwXX-mt-s-XXX.a
-			libboost_chrono-mgwXX-mt-s-XXX.a
-		
-		(Wrong order may cause "undefined reference" linker errors)
-
-	Start to compile.
-    
-	Open the "NanaPath/build/codeblocks/nana.cbp" and build it. Don't forget 
-	
-		"-std=c++0x" or "-std=c++11" 
-	
-	when building the Nana.C++11.
-
-3. Programming with Nana C++ Library
-	Create a project, then open "Project->Build options...->Compiler settings->Compiler flags", and enable "-std=c++11".
-	Switch the tab to "Linker settings" in "Project build options", and link these static libraries in "Other linker options".
-	##### Windows:
-				- lnana -lgdi32 -lcomdlg32
-	##### Linux:
-
-				-nana -lX11 -lpthread -lrt -lXft
-				-lpng (if the support of PNG is enabled)
-				-lasound (if nana::audio::player is called)
-
 
 \section Intro Introduction     
 
