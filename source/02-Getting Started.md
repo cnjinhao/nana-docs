@@ -802,43 +802,44 @@ See [Enable PNG](https://github.com/cnjinhao/nana/wiki/Configuration-of-Third-Pa
 
 The `class nana::msgbox` is used for displaying a modal dialog box to prompt a brief message. A brief example.
 
-\code
-	nana::msgbox m(STR("msgbox example"));
-	m<<STR("This is a msgbox example.");
+\code{.cpp}
+	nana::msgbox m("msgbox example");
+	m << "This is a msgbox example.";
 	m();
 \endcode
 
 ![Modal dialog box to prompt a brief message](msgbox.jpg)
 
-The msgbox is a C++ stream style, so we can easy to display strings, numbers and all the objects 
-whose type overloads an operator<<() for std::ostream.
+The msgbox has a C++ stream-like style, so we can easily display strings, numbers and all objects 
+whose type overloads an `operator<<()` for std::ostream.
 Sometimes, the application should ask user for a decision, for example, ask user whether to exit.
 
-\code
+\code{.cpp}
 	void when_exit(const nana::arg_unload& ei)
 	{
-		nana::msgbox m(ei.window, STR("msgbox example"), nana::msgbox::yes_no);
-		m.icon(m.icon_question);
-		m<<STR("Are you sure you want to exit the game?");
+		nana::msgbox m(ei.window, "msgbox example", nana::msgbox::yes_no);
+		m.icon(m.icon_question;
+		m << "Are you sure you want to exit the game?");
 		ei.unload.cancel = (m() != m.pick_yes);
 	}
 	int main()
 	{
-		using namespace nana::gui;
-		form fm;
+		nana::form fm;
 		fm.events().unload(when_exit);
 		fm.show();
-		exec();
+		nana::exec();
 	}
 \endcode
 
 ![Exit game](exitgame.jpg)
 
+
 \section icon Window Icon
+
 There are two interfaces to set an icon for a window which is a root_widget, such as form 
 and nested_form, thay are defined in namespace nana::API.
 
-\code
+\code{.cpp}
 	void window_icon_default(const nana::paint::image&);
 	void window_icon(nana::window, const nana::paint::image&);
 \endcode
@@ -849,25 +850,27 @@ Although the Nana C++ Library is aimed for cross-platform, there is a distinctio
 between Windows and Linux(X11). The icon of a window only could be an ICON file in Windows. 
 If cross-platform is desired, the code should be treated differently.
 
-\code
+\code{.cpp}
 	using namespace nana;
 	form fm;
 	#if defined(NANA_WINDOWS)
-	API::window_icon(fm, nana::paint::image(STR("icon.ico")));
+	API::window_icon(fm, nana::paint::image("icon.ico"));
 	#else
-	API::window_icon(fm, nana::paint::image(STR("icon.bmp")));
+	API::window_icon(fm, nana::paint::image("icon.bmp"));
 	#endif
 \endcode
 
 Under Windows, the icon of window is the icon of exe file usually, the icon file is 
 stored in the exe file as a resouce. To set the icon resouce for the window, we just 
 open the exe with class image in this way.
-
-	API::window_icon_default(nana::paint::image(STR("program.exe")));
+\code{.cpp}
+	API::window_icon_default(nana::paint::image("program.exe"));
+\endcode
 
 or
-
-	API::window_icon(a_form_object, nana::paint::image(STR("program.exe")));
+\code{.cpp}
+	API::window_icon(a_form_object, nana::paint::image("program.exe"));
+\endcode
 
 Posted in Nana C++ Library | Tags: c++, Cross-platform, gui, nana
 
