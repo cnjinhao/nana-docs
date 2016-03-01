@@ -744,48 +744,41 @@ This event is sent to a widget when the mouse cursor enters/leaves the widget.
 This event is sent when the user presses/releases/moves the mouse while the mouse cursor is in a widget. 
 
 
+
 \subsubsection Keyboard Keyboard Events  
 
 
-There are three different kinds of keyboard events in Nana C++ Library: key down, key up and character key down. 
+There are four different kinds of keyboard events in Nana C++ Library: 
++ nana::general_events::key_press,  
++ nana::general_events::key_release, 
++ nana::general_events::key_char and 
++ nana::general_events::shortkey.
 
-A window system usually uses an input focus to represent a window which would receive the keyboard events. 
-In general, a window which user clicks would be set to the input focus widow in Nana C++ Library. 
-Additionally, the program can determinate which window gets the input focus by calling `nana::API::set_focus()` .
+A window system usually uses an input focus to represent a window which would receive the keyboard events. In general, a window which user clicks would be set to the input focus widow in Nana C++ Library. Additionally, the program can determinate which window gets the input focus by  calling nana::API::focus_window(window wd) or the member function nana::widget::focus().
  
 The structure of keyboard event contains:
  
-\code
-	struct implemented-specified 
-	{ 
-	  mutable nana::char_t 	key; 
-	  mutable nana::bool 	ignore; 
-	  unsigned char 		ctrl; 
-	}; 
+\code{.cpp}
+	struct arg_keyboard : public event_arg
+	{
+		event_code evt_code;	    ///< it is event_code::key_press in current event
+		::nana::window window_handle;	///< A handle to the event window
+		mutable wchar_t key;	    ///< the key corresponding to the key pressed
+		mutable bool ignore;	    ///< this member is not used
+		bool ctrl;	                ///< keyboard Ctrl is pressed?
+		bool shift;	                ///< keyboard Shift is pressed
+	};
 \endcode
 
 As the definition shown, the member `key` and `ignore` are defined as `mutable`, the feature will be explained later. 
+\code{.cpp}
+	key_press/key_release 
+\endcode
 
-	key_down/key_up 
-
-When the users hit the keyboard, the `key_down` would be generated when a key is pressed down, and the `mouse_up`
+When the users hit the keyboard, the `nana::key_press` would be generated when a key is pressed down, and the `nana::key_release`
 would be generated when the pressed key is released. 
-
+\code{.cpp}
 	key_char 
-
-The `key_char` event is an abstract event. A window system usually translates the keys into characters. For example, to type a 
-Chinese character one usually needs to hit in the keyboard more than one key and the window system translates these keys into a Chinese 
-character and then a `key_char` event is generated and sent to the program. 
-The two members, `key` and `ignore`, are defined as `mutable` in the structure of key event. It is used to modify the state of `key_char` event. 
-During `key_char` processing, if the member `ignore` is set to `true`, Nana will igore the key. For example, when a program is designed 
-to receive the number input, the program should test the key in key_char event, and set the `ignore` to true if the input char is not a digital.
-Likein the  below code: 
-
-\code
-	void only_digital_allowed(const nana::eventinfo& ei) 
-	{ 
-		ei.ignore = (ei.key < '0' || ei.key > '9'); 
-	}
 \endcode
 
 \section PNG Enable the PNG support for Nana C++ Library
