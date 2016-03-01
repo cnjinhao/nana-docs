@@ -16,6 +16,7 @@ See also:
 
 \section exam Examples
 
+
 This chapter shows how to create an small graphical user interface (GUI) application with Nana C++ Library. 
 
 \subsection HelloN Hello Nana  
@@ -54,12 +55,15 @@ Now, you can run the program on your own machine. But firstly you should have Na
 installed in your system. A method to install is explained in [Installation Library Documentation](http://nanapro.org/en-us/help/instl_lib_doc.htm) in Nana Programmer`s Guide or [in the wiki](https://github.com/qPCR4vir/nana-docs/wiki/Installation) 
 
 
+ 
+
 \subsection Event Responding an Event  
+
 The second example shows how to respond a user action. To receive a user action, an event 
 handler should be registered to a widget. Nana waits for a user action and invokes the event 
 handler of the corresponding event. The example application consists of a button that the user can click to quit. 
-\include Examples\helloword_quit.cpp
 
+\include Examples\helloword_quit.cpp
 This source code is similar to Hello Nana, except that we are using a button instead of a label, and 
 we are making an event to respond a user click. Every widget class has a set of methods to make events, 
 they are named "events()". The parameter of the member function is an 
@@ -172,19 +176,26 @@ functions this way instead of creating a functor: ?????
 		exec(); 
 	} 
 \endcode
+![Figure 2.1 Various methods to make events to respond click.] (make_event.jpg)
 
-\subsection Predefined Predefined Function Objects 
+Or  more elaborated:
+\include C:\Prog\ExtLib\nana-demo\Examples\various_events.cpp
+![](https://raw.githubusercontent.com/qPCR4vir/nana-demo/master/Examples/events.png)
+
+\subsection Predefined Predefined Function Objects (is this in use?)
 
 Nana C++ Library includes many different predefined function objects. Using these 
 function objects together with function templates increases the expressive power of 
 the library as well as making the resulting code much more efficient. For example, if
 a C++ program wants to close the form when the form is being clicked. 
 
+\code{:CPP}
 	form.events().click(destroy(form)); 
+\endcode
 
 Please include <nana/gui/functional.hpp> before using these function objects. 
 
-\code
+\code{:CPP}
 	class destroy 
 	{ public: 
 		destroy(nana::window wd); 
