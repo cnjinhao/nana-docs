@@ -41,18 +41,19 @@ in doing GUI with your immense and extensive C++ knowledge/skill/idioms. It make
 progress in doing GUI in C++.
 
 How easy is to create a Hello World program with Nana?
-\include Examples\HelloWord.cpp
 
+\include Examples\HelloWord.cpp
 Pretty easy, with understandable code. Nana brings very simple and reasonable concepts 
 to keep it easy. Secondly, unlike other frameworks, that make you write stiff code due 
 to name and syntax constraints, Nana can make your code more straightforward and readable. 
 For example, answering an event.
-\include Examples\clicked.cpp
 
+\include Examples\clicked.cpp
 The name of `clicked` function is not constrained. You can give it any other name you want. 
 It is more straightforward than implementing an event handler from inheritance. 
 In some situations, we don't need to care about the parameter of `clicked()` function, 
 like in the example:
+
 \code{.cpp}
 	void clicked() //NO parameter defined.
 	{
@@ -60,6 +61,7 @@ like in the example:
 	}
 	fm.events().click(clicked);    //Nana allows!
 \endcode
+
 Very flexible, and keep your code simple. And this feature can be applied with function object.
 
 What makes Nana so flexible?
@@ -70,12 +72,15 @@ flexible. Unlike other template-based library don't causes code bloat
 and don't requires programmers to be template-skilled: it's newbie-friendly.
 
 Nana allows you to use lambda, a feature of C++11, for event answering. Like this:
+
 \code{.cpp}
 	fm.events().click( []{	//When the form is clicked, the object  	
 			           			        //created by this lambda will be "called".
  						            });
 \endcode
+
 or
+
 \code{.cpp}
 	fm.events().click( [](const arg_click& ei){ 
 										//When the form is clicked, the object created
@@ -83,21 +88,29 @@ or
  										//read the parameter.
  								   });
 \endcode
+
 Additionally, Nana can make use of `std::bind`.
+
+
 \subsection Threading Threading 
+
 Nana is a thread-safe library and accessing a widget between threads is normalized. 
 This is a great feature that makes programmer deliver the event answer to other thread easier.
 \include Examples\threading.cpp
 
+
 \subsection RAII RAII  
+
 This is an important feature. As shown in the above examples, as soon as a `form` object is created, 
 its corresponding window is created, but the window is invisible till the `show()` is called 
 for the `form` object. As soon as the `form` object is destructed, its corresponding window is 
 closed: this conforms with the C++ object life-time concept.
 
+
 \section Hello Hello World  
 
 This lesson is indented to get you started programming with Nana.GUI. Let's read the simple HelloWorld code. 
+
 \include Examples\helloword_quit.cpp
 ![Screenshot](Quit.jpg)
 
