@@ -588,61 +588,60 @@ Every event contains some information. The information is sent to the applicatio
 		fm.show(); 
 		exec(); 
 	} 
+\endcode
 
 Nana.GUI provides some raw events, such as `click`, `mouse_move` and so on. 
 Most of these events can work with all widgets implemented by Nana.GUI, but some of them are individual, 
 like `unload` for `root widget` and `elapse` for `timer`.
 
-Every widget has an interface for registering an event, named `events`.    \todo Actualize!
+Every widget has an interface for registering an event, named `events()`.    \todo Actualize events and arg!
 
-	  template<typename Event, typename Function>
-	event_handle make_event(Function) const;
+The events are:
 
-	  template<typename Event, typename Class, typename Concept>
-	event_handle make_event(Class& object, 
-	   void (Concept::*mf)(const  nana::eventinfo&));
+Event	     	    | argument	|	Description
+--------------------|----|-----------------------------------
+nana::general_events::click		    | nana::arg_click	| A mouse click event.
+ dbl_click	    | nana::arg_mouse	| A mouse double click event.
+ mouse_enter	| nana::arg_mouse	| A mouse enters a widget.
+ mouse_move	| nana::arg_mouse	| A mouse moves over a widget.
+ mouse_leave	| nana::arg_mouse	| A mouse leaves a widget.
+ mouse_down	| anana::rg_mouse	| A mouse button is pressed on a widget.
+ mouse_up	    | nana::arg_mouse	| A mouse button is released on a widget.
+ mouse_wheel	| nana::arg_wheel	| A mouse scrolls the wheel on a widget.
+ mouse_dropfiles	| nana::arg_dropfiles	| A mouse release over a window that is registered as recipient of drag and drop.
+ expose        | nana::arg_expose | the visibility changes
+ resizing	    |  nana::arg_resizing | A widget's size is changing.
+ resized       |  nana::arg_resized  | A widget's size changed.
+ destroy		| nana::arg_destroy	| The window is destroyed, but occurs when all children have been destroyed
+ focus		    | nana::arg_focus	| A widget's focus is changed.
+ key_press     | nana::arg_keyboard | a key is pressed while the window has focus. event code is event_code::key_press
+ key_release   | nana::arg_keyboard | a key is released while the window has focus. event code is event_code::key_release
+ key_char	    | nana::arg_keyboard | a character, whitespace or backspace is pressed. event code is event_code::key_char. The nana::focus widget received a character.
+ shortkey	    | nana::arg_keyboard	| a defined short key is pressed. event code is event_code::shortkey. The widgets received a shortkey message.
+nana::move          | nana::arg_move  | the window changes position
 
-	  template<typename Event, typename Class, typename Concept>
-	event_handle make_event(Class& object, void(Concept::*mf)());
+\deprecated  ?
+ elapse		|	| A widget received a tick that is sended by timer.
+ unload		|	| A form is closed by clicking the X button, only works for root widget.
+ key_up		|	| A keyboard is released on a focus widget.
+ key_down	|	| A keyboard is pressed on a focus widget.
 
-These template function calls explicitly specifies the first template parameter. 
-The Event is a type defined by Nana.GUI in nana::events. The events are:
-
-Event			|	Description
-----------------|---------------------------------------
-click			| A mouse click event.
-dbl_click		| A mouse double click event.
-mouse_enter		| A mouse enters a widget.
-mouse_move		| A mouse moves over a widget.
-mouse_leave		| A mouse leaves a widget.
-mouse_down		| A mouse button is pressed on a widget.
-mouse_up		| A mouse button is released on a widget.
-mouse_wheel		| A mouse scrolls the wheel on a widget.
-mouse_drop		| A mouse release over a window that is registered as recipient of drag and drop.
-size			| A widget's size is changing.
-unload			| A form is closed by clicking the X button, only works for root widget.
-destroy			| A widget is about to be destroyed.
-focus			| A widget's focus is changed.
-key_down		| A keyboard is pressed on a focus widget.
-key_char		| The focus widget received a character.
-key_up			| A keyboard is released on a focus widget.
-shortkey		| The widgets received a shortkey message.
-elapse			| A widget received a tick that is sended by timer.
 				
-An user-defined event function may have a parameter of type `const nana::eventinfo&` for queering the event information, such as mouse position.
+An user-defined event function may have a parameter of type `const nana::event_arg&` for queering the event information, such as mouse position.
 
+\code{.cpp}
 	void foo();
-	void foo_with_parameter(const nana::arg_mouse&);
+	void foo_with_parameter(const nana::arg_click&);
 	class user_def_functor
 	{ public:
-	   void operator()(const nana::arg_mouse&); 		 //user-defined function must have the parameter.
+	   void operator()(const nana::arg_click&); 		 //user-defined function must have the parameter.
 	};
-	nana::button().events().click(foo);
-	nana::button().events().click(foo_with_parameter);
-	nana::button().events().click(user_def_functor());
+	nana::button().events().click( foo                );
+	nana::button().events().click( foo_with_parameter );
+	nana::button().events().click( user_def_functor{} );
+\endcode
 
-`make_event` returns a handle for uninstalling the associated user-defined event function and Nana.GUI destroys the 
-user-defined event function automatically when the widget is beginning to destroy.
+`events()` members like click() returns a handle for uninstalling the associated user-defined event function and Nana.GUI destroys the user-defined event function automatically when the widget is beginning to destroy.
 
 This just describes these raw events, but some widgets like nana::treebox provides some high-level events, 
 such as expanding a node. These details are only described in its reference. 
