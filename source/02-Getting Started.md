@@ -261,7 +261,6 @@ The use of lambda is creating an anonymous function object and so the arguments 
 The lambda-declarator () is used like a parameter-list. Let's stop the introduction to the lambda, if you want more details of lambda, please refer to other C++ books. 
 
 
-
 \section forms   Creating forms  
 
 This chapter will teach you how to create a window using Nana C++ Library. 
@@ -281,115 +280,47 @@ Our first example is a Monty Hall Problem. This is a game that tests you whether
 Let's start creating this application. First we are going to design architecture for the application. 
 As we saw in figure 3.1, the application needs a form, a label and three buttons. 
 
-\code
-	1 #include <nana/gui/wvl.hpp> 
-	2 #include <nana/gui/widgets/label.hpp> 
-	3 #include <nana/gui/widgets/button.hpp> 
-	4 #include <nana/system/platform.hpp> 
-	5 class monty_hall 
-	6       : public nana::form 
-	7 { 
-	8     enum state_t{state_begin, state_picked, state_over}; 
-	9   public: 
-	10    monty_hall(); 
-	11  private: 
-	12    void _m_pick_door  (const nana::eventinfo& ei); 
-	13    void _m_play       (int door); 
-	14    void _m_remove_door(int exclude); 
-	15  private: 
-	16    state_t    state_; 
-	17    int        door_has_car_; 
-	18    nana::label  label_; 
-	19    nana::button door_[3]; 
-	20 }; 
-	21 int main() 
-	22 { 
-	23    monty_hall mh; 
-	24    mh.show(); 
-	25    nana::exec(); 
-	26 } 
-\endcode
-
+\includelineno MontiHall.cpp
+\notinclude MontiHall.cpp
 Lines 1 to 4 include the headers that are required by this application. 
-The wvl.hpp provides the basis of Nana C++ Library that all GUI program required. label.hpp 
-and button.hpp include the definitions of label and button, and we will specify the door which 
-has the new Car randomly by using timestamp()- platform.hpp provides the timestamp() function. 
+The `wvl.hpp` provides the basis of Nana C++ Library that all GUI program required. `label.hpp` 
+and `button.hpp` include the definitions of label and button, and we will specify the door which 
+has the new Car randomly by using `timestamp()` - function provided in `platform.hpp`. 
 
-Lines 5 to 20 define the class monty_hall. The monty_hall is derived from nana::form, 
-in another word, class monty_hall is defined as a form and we will put all handlers in this 
-class scope to keep program clear. 
+Lines 6 to 21 define the class `monty_hall` derived from nana::form. In other words, class `monty_hall` is defined as a `form` and we will put all handlers in this class scope to keep the program clear. 
 
-Line 8 defines a state type that contains three states. state_begin is a state that indicates 
-the first pick, state_picked indicates the second pick, and state_over indicates the result. 
+Line 9 defines a state type that contains three states. `state_begin` is a state that indicates 
+the first pick, `state_picked` indicates the second pick, and `state_over` indicates the result. 
 
-Line 10 declares a default constructor. It will initialize the widgets and set the initial state. 
+Line 11 declares a default constructor. It will initialize the widgets and set the initial state. 
 
-Line 12 declares a private member function to respond the user action on buttons. 
+Line 13 declares a private member function to respond the user action on buttons. 
 
-Line 13 and 14 declare two private member functions which handle the game logic. We will define them later.
+Line 14 and 15 declare two private member functions which handle the game logic. We will define them later.
  
-Lines 16 to 19 define the data members including label and buttons. The integer member door_has_car_ indicates the number of the door which has a car behind it.
+Lines 17 to 20 define the data members including label and buttons. The integer member door_has_car_ indicates the number of the door which has a car behind it.
  
-Lines 21 to 26 define the main function; an object of class monty_hall is defined, sets the form visible and enters the event loop.
+Lines 23 to 28 define the main function; an object of class monty_hall is defined, sets the form visible and enters the event loop.
  
-Let's implement the default constructor and three private member functions. 
+Let see the default constructor and three private member functions. 
 
-\code
-	27 monty_hall() 
-	28        : nana::form(nana::API::make_center(400, 150), 
-	29                                                        appear::decorate<appear::taskbar>()) 
-	30         ,state_(state_begin) 
-	31 { 
-	32    this->caption(STR("The Monty Hall Problem")); 
-	33    nana::string text = STR("Hi, I am the host, you are on a Game Show:\n") 
-	34    STR("You are given the choice of one of tree Doors.\n") 
-	35    STR("One door has a new Car behind it and the other two: Goats.\n") 
-	36    STR("Now pick a door to win the Car."); 
-	37 
-	38    label_.create(*this, 0, 0, 400, 100); 
-	39    label_.caption(text); 
-	40 
-	41    nana::string door_name[3] = 
-	42                              {STR("Door No.&1"), STR("Door No.&2"), STR("Door No.&3")}; 
-	43    for(int i = 0; i < 3; ++i) 
-	44    { 
-	45      door_[i].create(*this, 50 + 110 * i, 110, 100, 24); 
-	46      door_[i].caption(door_name[i]); 
-	47      door_[i].events().click(*this, 
-	48                                                          &monty_hall::_m_pick_door); 
-	49    } 
-	50 } 
-\endcode
 
-Line 28 and 29 initialize the base class of monty_hall. make_center() is a function that returns 
+Line 30 and 31 initialize the base class of monty_hall. make_center() is a function that returns 
 a rectangle that specifies an area in the center of screen with size of 400 X 150. The typedef name 
 appear is used for the abstraction of form appearance. The appear::decorate defines the form with caption 
 bar, border, a close button and displaying in taskbar. 
 
-Line 30 initializes the initial state. 
+Line 17 initializes the state. 
 
-Line 32 sets the caption of form. 
+Line 33 sets the caption of form. 
 
-Lines 33 to 36 define a text that describes the game information. 
+Lines 34 to 37 define a text that describes the game information. 
 
-Line 38 and 39 create a label widget and set the caption of label. The label will display the text which is defined in line 33. 
+Line 39 and 40 create a label widget and set the caption of label. The label will display the text which is defined in line 34. 
 
 Line 41 and 42 define a string array which contains the names of three doors. 
 
 Lines 43 to 48 create the buttons in a loop, and set the caption, make a click event for three buttons. 
-
-\code
-	51 void _m_pick_door(const nana::eventinfo& ei) 
-	52 { 
-	53 	int index = 0; 
-	54 	for(; index < 3; ++index) 
-	55 	{ 
-	56 		if(door_[index] == ei.window) 
-	57 		   break; 
-	58 	} 
-	59 	_m_play(index); 
-	   } 
-\endcode
 
 On line 51, the member function has a parameter, eventinfo that contains the event 
 information, such as which widget the event is taking place. We need the information to 
@@ -397,25 +328,6 @@ determinate which button is clicked, because the event handler of the three butt
 and the same. 
 
 Lines 53 to 59 find the index of the button which is clicked. The button which is click is specified by ei.window. _m_play() handles the logic of game. 
-
-\code
-	60 void _m_play(int door) 
-	61 { 
-	62    switch(state_) 
-	63    { 
-	64       case state_begin: 
-	65                      door_has_car_ = (nana::system::timestamp() / 1000) % 3; 
-	66                      _m_remove_door(door); 
-	67                      state_ = state_picked; 
-	68                 break; 
-	69       case state_picked: 
-	70                      label_.caption(door_has_car_ == door ? 
-	71                                        STR("Yes, you win the new Car!!") : STR("Sign, you are lost!")); 
-	72                      state_ = state_over; 
-	73                 break; 
-		  } 
-	   } 
-\endcode
 
 Line 60 defines the _m_play() to handle the logic of this game, it contains a parameter to indicate 
 what the number of door is picked. There are two states we would handle, state_begin indicates the 
@@ -436,35 +348,6 @@ Line 72 sets the final state.
 In fact, in the lines from 51 to 59, the member function _m_pick_door() can be removed by using 
 std::bind(), refer to section 2.3 Think about the Design. By using std::bind(), we can bind the 
 the index of door to the _m_play() and make it as the event handler for the click of button. 
-
-\code
-	74 void _m_remove_door(int exclude) 
-	75 { 
-	76 		std::vector<int> doors; 
-	77 		for(int i = 0; i < 3; ++i) 
-	78 		{ 
-	79 			if(i != exclude) 
-	80 				doors.push_back(i); 
-	} 
-	81 		unsigned ts = (nana::system::timestamp() / 1000) % 2; 
-	82 		if(door_has_car_ == doors[ts]) 
-	83 			ts = (ts ? 0: 1); 
-	84 		door_[doors[ts]].enabled(false); 
-	85 		doors.erase(doors.begin() + ts); 
-	86 		nana::string text = STR("I know what's behind all the doors and") 
-	87 			STR("I remove a door which a goat behind it. \n") 
-	88 			STR("And now, do you want to stick with your decision") 
-	89 			STR(" of Door No.X or do you want to change your choice") 
-	90 			STR(" to Door No.Y?"); 
-	91 		nana::char_t door_char = '1' + exclude; 
-	92 		nana::string::size_type pos = text.find(STR("Door No.X")); 
-	93 		text.replace(pos + 8, 1, 1, door_char); 
-	94 		door_char = '1' + doors[0]; 
-	95 		pos = text.find(STR("Door No.Y")); 
-	96 		text.replace(pos + 8, 1, 1, door_char); 
-	97 		label_.caption(text); 
-	} 
-\endcode
 
 Line 74 defines the _m_remove_door() to removes a door which is a goat behind it and 
 is not picked by gamer. The parameter exclude is a door number that picked by gamer. 
