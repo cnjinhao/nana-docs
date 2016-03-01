@@ -140,8 +140,9 @@ Set the `btn` to display the text "Quit".
 by using it. We want to exit the program while a mouse clicks on the btn. Now, register a callback
 function on `click` event. 
 
-\line form.show
+\line show
 A form widget is never visible when you create it. You must call show() to make it visible. 
+
 \line exec
 This is where the main() passes the control to Nana.GUI. exec() will return when the 
 application exists. In exec(), Nana.GUI processes the message loop and passes every event 
