@@ -9,62 +9,7 @@
 
 /** \example notepad.cpp
 
-  Simple Notepad
-\todo Use this in documents
-
-\dontinclude notepad.cpp
-
-\line _m_pick_file
-We start with a private member function _m_pick_file(), this function is to tell user to select a file.
-
-\line return (fbox.show() ? fbox.file() : std::string());
-
-If user clicks "cancel" button or closes the dialog by clicking 'X' close button, fbox.show() returns false for no file selection.
-
-\line _m_ask_save()
-This function will have asked user to save the text to a file by the time the text is closed.
-
-\line if(textbox_.edited())
-Determines whether the text has been edited. If there are modifications to the text, then it
-
-\line auto fs = textbox_.filename();
-When the textbox opens a file or saves a text to a file, the textbox will keep the filename. If fs is empty, the program asks user to select a file to save the text.
-
-_m_ask_save() has a return type, that is bool type. And it returns false if and only if the user cancel the selection.
-
-\line notepad_form()
-In the default of constructor, we need create the menubar and textbox, and set the layout for the form.
-
-\line textbox_.borderless(true);
-API::effects_edge_nimbus(textbox_, effects::edge_nimbus::none);
-
-Disables the border and edge numbus effect of the textbox.
-
-\code{.cpp}
-textbox_.events().mouse_dropfiles([this](const arg_drppfiles& arg)
-{
-    if (arg.files.size() && _m_ask_save())
-        textbox_.load(arg.files.at(0).data());
-});
-\endcode
-
-Sets a Drag'n Drop event for the textbox, it allows user to open a file by dragging the file outside of the program and dropping the file inside the program. 
-The call of _m_ask_save() here is to try to ask user to save the edited text.
-
-\code{.cpp}
-events().unload([this](const arg_unload& arg){
-    if (!_m_ask_save())
-        arg.cancel = true;
-});
-\endcode
-
-Sets an unload event for the form, it enables program to ask user to save the edited text when closing the program, and if user cancels the messagebox, the program stops closing.
-
-\line _m_make_menus()
-Sets menus for the menubar.
-
-\line int main()
-Creates the form of notepad.
+\see  notepad
  */
 
 
@@ -150,7 +95,7 @@ form, picture, label, button, progressbar, file_iterator, thread and less than 4
 /** \example  screen.cpp
 */ 
 
-/** \example montihall.cpp
+/** \example MontiHall.cpp
 */
 
 /** \example loader_1.cpp

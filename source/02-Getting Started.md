@@ -69,7 +69,54 @@ the event loop. It will be called when the user clicks the button.
 
 ![Figure 1.2 Event Example](Quit.jpg)
  
+ 
 
+\subsection notepad Simple Notepad  
+This is an small but working notepad:
+
+\include notepad.cpp
+A few comments:  
+
+\dontinclude notepad.cpp
+
+\skipline notepad_form
+We need among others to create the `menubar` and `textbox`, and set the layout for the form.
+
+\skip  borderless(true);
+\until API::effects_edge_nimbus 
+Disables the border and edge numbus effect of the textbox.
+
+\skip  events().mouse_dropfiles
+\until });
+Sets a Drag'n Drop event for the textbox, it allows user to open a file by dragging the file outside of the program and dropping the file inside the program. 
+The call of _m_ask_save() here is to try to ask user to save the edited text.
+
+\skip  events().unload
+\until  });
+Sets an unload event for the form, it enables program to ask user to save the edited text when closing the program, and if user cancels the messagebox, the program stops closing.
+
+\skipline _m_pick_file
+We start with a private member function `_m_pick_file()`, this function is to tell user to select a file.
+
+\skipline return (fbox.show() ?  
+If the user clicks the "cancel" button or closes the dialogue by clicking the 'X' close button, `fbox.show()` returns `false` for no file selection.
+
+\skipline _m_ask_save()
+This function will have asked user to save the text to a file by the time the text is closed.
+ 
+\skipline (textbox_.edited())
+Determines whether the text has been edited. If there are modifications to the text, then it ask to save it.
+
+\skipline  textbox_.filename
+When the textbox opens a file or saves a text to a file, the textbox will keep the filename. If `fs` is empty, the program asks user to select a file to save the text. `_m_ask_save()` has a return type `bool`. It returns `false` if and only if the user cancel the selection.
+
+\skipline _m_make_menus()
+Sets menus for the menubar.
+
+\skipline main
+Creates the form of notepad.
+ 
+ 
 \section Functor Function Objects  
 
 This chapter shows two basic concepts: function objects and lambdas.
