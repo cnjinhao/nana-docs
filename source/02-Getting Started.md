@@ -781,63 +781,22 @@ would be generated when the pressed key is released.
 	key_char 
 \endcode
 
-\section PNG Enable the PNG support for Nana C++ Library
+The `key_char` event is an abstract event. A window system usually translates the keys into characters. For example, to type a Chinese character one usually needs to hit in the keyboard more than one key and the window system translates these keys into a Chinese character and then a `key_char` event is generated and sent to the program. 
 
-In the release of 0.2, Nana provides the support for PNG, but by defaul Nana disables the feature 
-of PNG for easy and fast configuration.
-The support for PNG is introduced to Nana C++ Library by employing [libpng](http://www.libpng.org), there are two strategies for the support:
-1. use the libpng bundled with Nana;
-2. use the libpng from operating system, it means that we have to install the libpng by ourselves.
+The two members, `key` and `ignore`, are defined as `mutable` in the structure of key event. It is used to modify the state of `key_char` event. During `key_char` processing, if the member `ignore` is set to `true`, Nana will ignore the key. For example, when a program is designed to receive the a number as input, the program should test the key in key_char event, and set the `ignore` to true if the input char is not a digit.
+Like in the code below: 
 
-\subsection pnge Enable the support for PNG
-
-Open the config.hpp in nana include folder, you can find a line of comment like is
-
-	//#define NANA_ENABLE_PNG
-
-Cancel the comment to enable the support for PNG.
-Now, the result looks like this:
-
-\code
-	#define NANA_ENABLE_PNG 1
-	#if defined(NANA_ENABLE_PNG)
-	//Comment it for using the libpng from operating system.
-	#define NANA_LIBPNG 1
-	#endif
-\endcode
-
-Keep the #defined NANA_LIBPNG for using the `libpng` bundled with Nana.
-Comment it for using the libpng from operating system.
-By default, Nana uses the libpng bundled with it in win32 package, and the libpng 
-from operating system in linux X11 package.
-After configuration, rebuild the Nana C++ Library, and create an application for trial.
-
-\code
-	#include <nana/gui/wvl.hpp>
-	#include <nana/gui/widgets/picture.hpp>
-	#include <nana/gui/layout.hpp>
-	int main()
-	{
-		using namespace nana;
-		form fm;
-		picture pic(fm);
-		gird gd(fm);
-		gd.push(pic, 0, 0);
-		pic.load(STR("a_png_file.png"));
-		fm.show();
-		exec();
+\code{.cpp}
+	void only_digital_allowed(const nana::arg_keyboard& ei) 
+	{ 
+		ei.ignore = (ei.key < '0' || ei.key > '9'); 
 	}
 \endcode
 
-Under Windows, link the static library of libpng in "%nana%/extrlib" folder.
 
-libpng.a: For Dev-C++ and Code::Blocks
+\section PNG Enable the PNG support for Nana C++ Library
 
-libpng.md.lib/libpng.md.x64.lib: For VC and Multi-threaded DLL runtime library.
-
-libpng.mt.lib/libpng.mt.x64.lib: For VC and Multi-threaded runtime library.
-
-Under Linux, modify the makefile and add a "-lpng" for compiler.
+See [Enable PNG](https://github.com/cnjinhao/nana/wiki/Configuration-of-Third-Party-Libraries-for-Nana#enable-the-png-support-in-visual-studio-2015)
 
 \section msg Message box
 
