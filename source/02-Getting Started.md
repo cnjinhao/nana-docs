@@ -151,12 +151,7 @@ On the basis of the feature that function objects retain its own state, it is ea
 
 Nana C++ Library uses a large number of function objects to make the framework work. To make the framework flexible enough, Nana C++ Library uses the general std::function class template.
 
-By using the functor class template, we are able to make Nana C++ Library get rid of types that involved. For example:
-\include C:\Prog\ExtLib\nana-demo\Examples\various_events.cpp
-![](https://raw.githubusercontent.com/qPCR4vir/nana-demo/master/Examples/events.png)
 There are four different types of event handlers that can be processed. It is flexible and reduce the complexity of study and use. 
-
-![Figure 2.1 Various methods to make events to respond click.] (make_event.jpg)
 
 In the previous example, we illustrated the use of std::function and the flexibility of using a 
 function object. Practically, creating a functor object is not required. Using these 
