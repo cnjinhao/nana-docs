@@ -184,13 +184,13 @@ function objects together with function templates increases the expressive power
 the library as well as making the resulting code much more efficient. For example, if
 a C++ program wants to close the form when the form is being clicked. 
 
-\code{:CPP}
+\code{.CPP}
 	form.events().click(destroy(form)); 
 \endcode
 
 Please include <nana/gui/functional.hpp> before using these function objects. 
 
-\code{:CPP}
+\code{.CPP}
 	class destroy 
 	{ public: 
 		destroy(nana::window wd); 
@@ -200,7 +200,7 @@ Please include <nana/gui/functional.hpp> before using these function objects.
 
 Destroy the window. 
 
-\code{:CPP}
+\code{.CPP}
 	class hide 
 	{ public: 
 		hide(nana::window wd); 
@@ -210,7 +210,7 @@ Destroy the window.
 
 Hide the window.
  
-\code{:CPP}
+\code{.CPP}
 	class show 
 	{ public: 
 		show(nana::window wd); 
@@ -226,7 +226,7 @@ A lambda expression is a mechanism for specifying a function object. The lambda
 is a new feature that introduced into C++ language recently, the primary use for a 
 lambda is to specify a simple action to be performed by some functions. For example: 
 
-\code{:CPP}
+\code{.CPP}
 	#include <nana/gui/wvl.hpp> 
 	#include <iostream> 
 	int main() 
@@ -245,13 +245,13 @@ The argument []{ std::cout<<"form is clicked"<<std::endl; } is a "lambda"
 and compound-state block {} defines a function body. In fact, A lambda defines an anonymous 
 function object, and therefore a lambda could be invoked through a function-call syntax. 
 
-\code{:CPP}
+\code{.CPP}
 	[]{ std::cout<<"hello, Nana"<<std::endl; }(); 
 \endcode
 
 The use of lambda is creating an anonymous function object and so the arguments should be specified. For example: 
 
-\code{:CPP}
+\code{.CPP}
 	form.events().click( 
 			[](const nana::arg_mouse& ei) 
 			{ std::cout<<"mouse pos=("<<ei.pos.x<<", "<<ei.pos.y <<std::endl;} 
