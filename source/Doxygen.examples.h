@@ -1,12 +1,74 @@
-/**
-\example subclass.cpp
+/** \example helloworld_demo.cpp
+ *  
+ *  ![Screenshot of helloworld_demo](helloworld_demo.png)
  */
-*/
+ 
 
-/**\example notepad.cpp
-*/
-/**
-\example calculator.cpp
+/** \example subclass.cpp
+ */
+
+/** \example notepad.cpp
+
+  Simple Notepad
+\todo Use this in documents
+
+\dontinclude notepad.cpp
+
+\line _m_pick_file
+We start with a private member function _m_pick_file(), this function is to tell user to select a file.
+
+\line return (fbox.show() ? fbox.file() : std::string());
+
+If user clicks "cancel" button or closes the dialog by clicking 'X' close button, fbox.show() returns false for no file selection.
+
+\line _m_ask_save()
+This function will have asked user to save the text to a file by the time the text is closed.
+
+\line if(textbox_.edited())
+Determines whether the text has been edited. If there are modifications to the text, then it
+
+\line auto fs = textbox_.filename();
+When the textbox opens a file or saves a text to a file, the textbox will keep the filename. If fs is empty, the program asks user to select a file to save the text.
+
+_m_ask_save() has a return type, that is bool type. And it returns false if and only if the user cancel the selection.
+
+\line notepad_form()
+In the default of constructor, we need create the menubar and textbox, and set the layout for the form.
+
+\line textbox_.borderless(true);
+API::effects_edge_nimbus(textbox_, effects::edge_nimbus::none);
+
+Disables the border and edge numbus effect of the textbox.
+
+\code{.cpp}
+textbox_.events().mouse_dropfiles([this](const arg_drppfiles& arg)
+{
+    if (arg.files.size() && _m_ask_save())
+        textbox_.load(arg.files.at(0).data());
+});
+\endcode
+
+Sets a Drag'n Drop event for the textbox, it allows user to open a file by dragging the file outside of the program and dropping the file inside the program. 
+The call of _m_ask_save() here is to try to ask user to save the edited text.
+
+\code{.cpp}
+events().unload([this](const arg_unload& arg){
+    if (!_m_ask_save())
+        arg.cancel = true;
+});
+\endcode
+
+Sets an unload event for the form, it enables program to ask user to save the edited text when closing the program, and if user cancels the messagebox, the program stops closing.
+
+\line _m_make_menus()
+Sets menus for the menubar.
+
+\line int main()
+Creates the form of notepad.
+ */
+
+
+/** \example calculator.cpp
 
 Requires: C++11, Nana 0.5
 
@@ -14,17 +76,12 @@ In this tutorial, we will make a GUI calculator with Nana C++ Library. The calcu
 
 ![Screenshot of Calculator](calculator.png)
 
-Using nana::place which is introduced into Nana in the version of 0.5, we can create a such GUI easily.
+Using nana::place which was introduced in Nana version 0.5, we can create such a GUI easily.
 
 Let's start the code.
-
 */
 
-/**
-
-\example freeme.cpp
-
-
+/** \example freeme.cpp
 
 [The FreeMe](http://nanapro.sourceforge.net/help/tutorials/thefreeme.htm)
 
@@ -39,8 +96,6 @@ The FreeMe is a sample of Nana under Windows, it cleans junk files on system par
 What components make up the FreeMe:
 
 form, picture, label, button, progressbar, file_iterator, thread and less than 400 lines source code. Click here to download the package that contains the source code and binrary.
-
-
 */
 
 /**\example demo.cpp11.cpp
@@ -49,137 +104,56 @@ form, picture, label, button, progressbar, file_iterator, thread and less than 4
 [Code](http://searchcode.com/codesearch/view/27847828)
 */
 
-/**\example helloword.cpp
+/** \example helloword.cpp
 */
 
-/**\example clicked.cpp
+/** \example clicked.cpp
 */
 
-/**\example threading.cpp
+/** \example threading.cpp
 */
 
-/** 
-
-\example helloword_quit.cpp
-
+/** \example helloword_quit.cpp
 ![Screenshot](Quit.jpg)
-
-Walkthrough Line-by-line
-
-	#include <nana/gui/wvl.hpp>
-
-This line includes the Nana.GUI class definition. 
-
-	#include <nana/gui/widgets/button.hpp>
-
-This line includes the Nana.GUI.button class definition. 
-
-	int main()
-	{
-
-The `main()` function is the entry point to the program. Almost always when using Nana.GUI, 
-`main()` only needs to perform some kind of initialization before passing the control to the Nana.GUI 
-library, which then tells the program about the user's actions via events.
-
-    using namespace nana::gui;
-
-Specify the nominated namespace nana::gui can be used in `main` function block scope. 
-In this example, these names `form`, `button`, `events`, `API` and `exec` are defined in the namespace nana::gui.
-With this using-directive, we could use these names directly in the main function scope.
-
-	form fm;
-
-This is the first piece of window-system code. A `form` is created while the variable `fm` is defined.
-The `form` is a window with title bar and a sizable border frame, it's fundamental that you can put 
-some widgets above it. 
-
-	fm.caption(STR("Hello World"));
-
-Set the `form` to display the text "Hello World" in its title bar. 
-
-	button btn(fm, nana::rectangle(20, 20, 150, 30));
-
-After the `form`, comes a button we created. In its constructor arg-list, the first argument tells 
-the btn who the parent window is, and the following arguments describe position and size of btn. 
-
-	btn.caption(STR("Quit"));
-
-Set the btn to display the text "Quit". 
-
-	btn.make_event<events::click>(API::exit);
-
-make_event() is a method that every Nana.GUI widgets provide, you can register an event callback 
-by using it. We want to exit the program while a mouse clicks on the btn. Now, register a callback
-function on `click` event. 
-
-	form.show();
-
-A form widget is never visible when you create it. You must call show() to make it visible. 
-
-	nana::exec();
-
-This is where the main() passes the control to Nana.GUI, and exec() will return when the 
-application exists. In exec(), Nana.GUI processes the message loop and passes every event 
-on to the appropriate widgets. 
-
-	}
-
-You should now save and compile the program.
-
-Further
-
-	STR("Hello World")
-
-What is `STR`? `STR` is a macro that transforms a multi-byte string into wide-byte string 
-if `NANA_UNICODE` is defined in *config.hpp*. With `STR` you can easier switch your program 
-between multi-byte and wide-byte. 
-
-	btn.events().click(nana::API::exit);
-
-What is nana::API::exit? This is an API provided by Nana.GUI. Its prototype is
-void exit(). If exit() is called, Nana.GUI destroy all the windows you've created and 
-the exec() will return. Member make_event() has a template argument. The argument can be a
-function or a functor with a  `const nana::eventinfo&` parameter or not. 
-
-
-*/
-/**\example various_events.cpp11.cpp
 */
 
-/**\example lambda_event.cpp11.cpp
+/** \example various_events.cpp11.cpp
 */
 
-/**\example file_explorer.cpp
-*/ 
-
-/**\example drag-button.cpp
-*/ 
-
-/**\example folder_tree_nana.cpp
-*/ 
-
-/**\example  folder_tree_std.cpp
-*/ 
-
-/**\example framework_design_1.cpp
-*/ 
-
-/**\example framework_design_3.cpp
-*/ 
-
-/**\example framework_design_2.cpp
-*/ 
-
-/**\example group.cpp
-*/ 
-
-/**\example  screen.cpp
-*/ 
-
-/**\example montihall.cpp
+/** \example lambda_event.cpp11.cpp
 */
 
-/**\example loader_1.cpp
+/** \example file_explorer.cpp
+*/ 
+
+/** \example drag-button.cpp
+*/ 
+
+/** \example folder_tree_nana.cpp
+*/ 
+
+/** \example  folder_tree_std.cpp
+*/ 
+
+/** \example framework_design_1.cpp
+*/ 
+
+/** \example framework_design_3.cpp
+*/ 
+
+/** \example framework_design_2.cpp
+*/ 
+
+/** \example group.cpp
+*/ 
+
+/** \example  screen.cpp
+*/ 
+
+/** \example montihall.cpp
+*/
+
+/** \example loader_1.cpp
 */
 
 /**\example loader_2.cpp
