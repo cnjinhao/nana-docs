@@ -396,32 +396,20 @@ template parameters, the first is used for specifying a type of form, the second
 template parameter and its type is bool named IsMakeVisible, used for determining whether making 
 the form visible. So, we can specify the second template parameter by giving true, like this. 
 
+\code{.CPP}
 	btn.events().click(form_loader<form, true>()); 
+\endcode
 
 See also [this discussion](https://nanapro.codeplex.com/discussions/443128).
+
+
 \subsection mmodal Modal Form  
+
 Modal form is a modality of forms. It would handle all interactions with the user 
 while the form is active. This is what makes the form modal, the user can not interact 
 with its owner window until the form is closed. Modal form is useful to block the program 
 execution and wait for a user input. For example:
 
-\code
-	#include <nana/gui/wvl.hpp> 
-	#include <nana/gui/widgets/button.hpp> 
-	#include <iostream> 
-	void foo(const nana::arg_mouse& ei) 
-	{ 
-		using namespace nana::gui; 
-		form fm(ei.window, API::make_center(ei.window, 400, 300)); 
-		fm.caption(STR("I am a modal form")); 
-		std::cout<<"Block execution till modal form is closed"<<std::endl; 
-		API::modal_window(fm); 
-		std::cout<<"modal form is closed"<<std::endl; 
-	} 
-	int main() 
-	{ 
-		using namespace nana; 
-		form fm; 
 \ include modal_form.cpp
 Call nana::API::modal_window() to enable modal form. Only if an owner is 
 specified for the form initialization, will the form enable as modal form. The 
