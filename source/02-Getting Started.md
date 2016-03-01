@@ -378,41 +378,13 @@ and call the constructor. In this case, the pointer variable must be explicitly 
 But the question is when shall we delete the pointer variable? In fact, we can create a form object by using form_loader. 
 Nana C++ Library will manage the form objects created by form_loader and destroy the objects when the user closes the form. For example:
 
-\code
-	#include <nana/gui/wvl.hpp> 
-	int main() 
-	{ 
-	using namespace nana; 
-	form_loader<form>()().show(); 
-	exec(); 
-	} 
-\endcode
-
+\include loader_1.cpp
 nana::form_loader is a template functor class. It creates an object of the template 
 parameter class. nana::form_loader is useful when you create a form and don't want to 
 take care about the lifetime of the object. Continuing with the next example, we see a form 
 is created when the button is being clicked. 
 
-\code
-	#include <nana/gui/wvl.hpp> 
-	#include <nana/gui/widgets/button.hpp> 
-	void click() 
-	{ 
-		using namespace nana; 
-		form_loader<form>()().show(); 
-	} 
-	int main() 
-	{ 
-		using namespace nana; 
-		form fm; 
-		button btn(fm, 10, 10, 150, 23); 
-		btn.caption(STR("Open a new form")); 
-		btn.events().click(click); 
-		fm.show(); 
-		exec(); 
-	} 
-\endcode
-
+\include loader_2.cpp
 In fact, a form_loader object can be passed to make_event because it is a functor. 
 Take a look at above code: form would not be shown immediately after initialization, 
 and the show() method is need to call explicitly after creating the form by form_loader. 
@@ -450,13 +422,7 @@ execution and wait for a user input. For example:
 	{ 
 		using namespace nana; 
 		form fm; 
-		fm.caption(STR("Click me to open a modal form")); 
-		fm.events().click(foo); 
-		fm.show(); 
-		exec(); 
-	} 
-\endcode
-
+\ include modal_form.cpp
 Call nana::API::modal_window() to enable modal form. Only if an owner is 
 specified for the form initialization, will the form enable as modal form. The 
 object fm in function foo() is created and specified ei.window as its owner. The 
