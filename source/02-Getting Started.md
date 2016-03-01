@@ -418,25 +418,25 @@ ei.window refers to the form that is defined in function main(), and passed by e
 
 
 
+\section appear_doc Appearance of Window 
 
-
-\section appear Appearance of Window 
 A window has an appearance. This appearance can be specified when a window is being created. 
 To determine the appearance of a window there is a structure named nana::appearance with 
 a bool member for each feature with can be included or excluded in the "apereance" of the windows form. 
 But in practical development is hard to describe the style of the appearance using the struct nana::appearance.
 If a form would to be defined without min/max button and sizable border, then
 
+\code{.CPP}
     nana::form form(x, y, width, height, nana::appearance(false, false, false, true, false));
+\endcode
 
-This piece of code may be confused because of the 5th parameter of constructor from `nana::form`. So the library provides a helper 
-class for making it easy.  
+This piece of code may be confusing because of the 5 parameters of the constructor of `nana::form`. So the library provides a helper class for making it easy.  
 For better readability and understandability Nana provides three templates classes to generate an appearance object: 
 nana::appear::decorate, nana::appear::bald and nana::appear::optional. Each provide an operator 
 that return a corresponding nana::appearance with predefined values. 
  
-\code
-namespace nana {namespace gui {
+\code{.CPP}
+namespace nana {
 	struct appear 
 	{ 
 		struct minimize; 
@@ -468,8 +468,8 @@ These templates generate appearances. Every template receives the template param
 __template nana::appear::decorate__ is used for creating an appearance of a window with "decoration". 
 A window decoration in Windows is called the non-client area, such as title bar.
 
-So, we can create a form without min/max button and sizable border like this:  
-\code
+We can create a form without min/max button and sizable border like this:  
+\code{.CPP}
 using nana::appear;
 nana::form form(x, y, width, height, appear::decorate<appear::taskbar>());
 \endcode
@@ -478,9 +478,11 @@ nana::form form(x, y, width, height, appear::decorate<appear::taskbar>());
 
 The appearance created by appear::decorate<>() has a titlebar and borders that are draw by the platform- window manager. 
 If a window needs a minimize button, it should be:
-\code
+\code{.CPP}
 appear::decorate<appear::minimize, appear::taskbar>()
 \endcode
+
+
 __nana::appear::bald__ is used for creating a window without decoration. 
 
 ![No decoration appear::bald<>()](noDecoration.jpg) 
@@ -493,18 +495,7 @@ by the template. For example template nana::appear::decorate receives the parame
 appear::sizable, appear::floating and appear::no_activate. So, creating an appearance with decoration 
 that has a minimize button and maximize button will be: 
 
-\code
-	#include <nana/gui/wvl.hpp> 
-	int main() 
-	{ 
-		using namespace nana; 
-		form fm(API::make_center(240, 160), 
-		appear::decorate<appear::minimize, appear::maximize>()); 
-		fm.show(); 
-		exec(); 
-	} 
-\endcode
-
+\include decore.cpp
 ![Decoration with minimize button and maximize button] (minimize.jpg)
 
 __The nana::appear::optional__ is used to create a window with decoration depending on the first non-type template parameter.
