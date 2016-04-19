@@ -754,7 +754,7 @@ There are four different kinds of keyboard events in the Nana C++ Library:
 + nana::general_events::key_char and 
 + nana::general_events::shortkey.
 
-A window system usually uses an input focus to represent a window which would receive the keyboard events. In general, the user clicks on a window to set the input focus in the Nana C++ Library. Additionally, the program can ste which window gets the input focus by calling nana::API::focus_window(window wd) or the member function nana::widget::focus().
+A window system usually uses an input focus to represent a window which would receive the keyboard events. In general, the user clicks on a window to set the input focus in the Nana C++ Library. Additionally, the program can set which window gets the input focus by calling nana::API::focus_window(window wd) or the member function nana::widget::focus().
  
 The structure of a keyboard event contains:
  
