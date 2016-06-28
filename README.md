@@ -19,7 +19,7 @@ Contributed by qPCR4vir
 
 # Documenting nana
 
-1. [Reference Manuals](http://nanapro.org/en-us/help/index.htm) by Jin Hao.
+1. [Reference Manuals](http://nanapro.org/en-us/documentation/) by Jin Hao.
 2. [This Nana automatic documentation project](https://github.com/cnjinhao/nana-docs).  [See an example here](http://qpcr4vir.github.io/nana-doxy/html/index.html). To contribute:  
   * fork [nana](https://github.com/cnjinhao/nana), directly edit doxygen comments in the source code and make a pull request to hotfix.     
   * fork [nana-docs](https://github.com/cnjinhao/nana-docs) or [nana-docs-fork](https://github.com/qPCR4vir/nana-docs) and edit doxygen sources and request a pull. You can modify the .md files in this repository (for example: [Getting Started](https://github.com/qPCR4vir/nana-docs/blob/master/source/02-Getting%20Started.md). One of the possibilities: in your fork of nana-docs you edit the file and make a pull request).  
